@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+if ['-h', '--help'].include?(ARGV[0]) || ARGV[1]
+  puts <<-HELP.gsub(/^ {6}/, '')
+  Usage:
+    bin/setup [<app_name>]
+  HELP
+elsif ARGV[0]
+  system("heroku create #{ARGV[0]}")
+else
+  system("heroku create #{Dir.pwd.split('/').last}")
+end
