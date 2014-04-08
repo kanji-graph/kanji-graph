@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'surnames/histogram' => "surnames#histogram", :as => "surnames_histogram"
+
   resources :surnames
 
   get 'histogram' => 'visualizations#histogram', :as => "histogram"

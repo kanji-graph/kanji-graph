@@ -1,6 +1,11 @@
 class SurnamesController < ApplicationController
   before_action :set_surname, only: [:show, :edit, :update, :destroy]
 
+  def histogram
+    @histogram_data = Surname.histogram_data
+    render json: @histogram_data
+  end
+
   # GET /surnames
   # GET /surnames.json
   def index
