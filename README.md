@@ -2,39 +2,19 @@
 
 ## Description
 
-Add a short description of your app.
+Create and view associations between Japanese words.
 
 ## Screenshots
 
-Add some spiffy screenshots of your app here.
 
-## Background
+![Ten most common surnames](http://i.imgur.com/ZYj8OHw.png)
 
-Why did you want to make this app? What was your development process
-like?
-
-## Features
-
-Bullet point some of the key features of your app here.
-
-## Usage
-
-How do users use your app?
-
-## Development/Contribution
-
-Explain how people can contribute to your app. How should they write tests?
-Any things in particular you'd like to see in pull requests?
-
-## Future
-
-What features are you currently working on? Only mention things that you
-actually are implementing. No pie-in-the-sky-never-gonna-happen stuff.
+Sample dataset using the 10 most common Japanese surnames, taken from [Wikipedia](http://en.wikipedia.org/wiki/List_of_most_common_surnames_in_Asia#Japan "wikipedia").
 
 ## Author
 
-Link to your blog, twitter, etc!
+@eleichsea and @mprouts!
 
 ## License
 
-My Spiffy App is MIT Licensed. See LICENSE for details.
+This app is MIT Licensed. See LICENSE for details.
