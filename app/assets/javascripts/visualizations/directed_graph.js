@@ -6,8 +6,9 @@ $(document).ready(function(){
   var color = d3.scale.category20();
 
   var force = d3.layout.force()
+      .charge(-160)
       .linkDistance(30)
-      .linkStrength(2)
+      .linkStrength(.9)
       .size([width, height]);
 
   var svg = d3.select("body").append("svg")
