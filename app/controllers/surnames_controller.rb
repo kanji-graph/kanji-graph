@@ -8,7 +8,6 @@ class SurnamesController < ApplicationController
 
   def directed_graph
     @directed_graph_data = Surname.directed_graph_data
-    binding.pry
     render json: @directed_graph_data
   end
 

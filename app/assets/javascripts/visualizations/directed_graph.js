@@ -6,7 +6,7 @@ $(document).ready(function(){
   var color = d3.scale.category20();
 
   var force = d3.layout.force()
-      .linkDistance(10)
+      .linkDistance(30)
       .linkStrength(2)
       .size([width, height]);
 
@@ -40,11 +40,19 @@ $(document).ready(function(){
 
     var node = svg.selectAll(".node")
         .data(graph.nodes)
-      .enter().append("circle")
-        .attr("class", "node")
-        .attr("r", 5)
-        .style("fill", function(d) { return color(d.group); })
-        .call(force.drag);
+      .enter().append("g");
+    var circle = node.append("circle")
+          .attr("class", "node")
+          .attr("r", 12)
+          .style("fill", "white")
+          .style("stroke", "#4b4b4b")
+          .call(force.drag);
+    var text = node.append("text")
+          .attr("y", "5")
+          .style("color", "#4b4b4b")
+          .style('text-anchor', 'middle')
+          .text(function(d) { return d.name; });
+
 
     node.append("title")
         .text(function(d) { return d.name; });
