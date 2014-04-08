@@ -3,6 +3,6 @@ class Surname < ActiveRecord::Base
     names = self.pluck(:name)
     kanji = names.join("").split("")
     hash = kanji.group_by { |v| v }
-    hash.inject({}) { |result, (k, v)| result[k] = v.length; result }
+    hash.map{|key, value| {:kanji => key, :value => value.count}}
   end
 end
