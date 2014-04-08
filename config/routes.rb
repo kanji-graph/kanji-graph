@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get 'histogram' => 'visualizations#histogram', :as => "histogram"
 
   get 'directed_graph' => 'visualizations#directed_graph', :as => "directed_graph"
+  get 'miserables' => 'visualizations#miserables'
 
 
   # The priority is based upon order of creation: first created -> highest priority.
