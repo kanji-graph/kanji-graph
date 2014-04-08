@@ -6,6 +6,12 @@ class SurnamesController < ApplicationController
     render json: @histogram_data
   end
 
+  def directed_graph
+    @directed_graph_data = Surname.directed_graph_data
+    binding.pry
+    render json: @directed_graph_data
+  end
+
   # GET /surnames
   # GET /surnames.json
   def index

@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   #json request
   get 'surnames/histogram' => "surnames#histogram", :as => "surnames_histogram"
+  get 'surnames/directed_graph' => "surnames#directed_graph", :as => "surnames_directed_graph"
 
   resources :surnames
 

@@ -14,7 +14,7 @@ $(document).ready(function(){
       .attr("width", width)
       .attr("height", height);
 
-  d3.json("miserables", function(error, graph) {
+  d3.json("surnames/directed_graph", function(error, graph) {
     var nodes = graph.nodes.slice(),
         links = [],
         bilinks = [];
