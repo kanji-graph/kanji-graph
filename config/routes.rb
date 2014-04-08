@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
+  #json request
   get 'surnames/histogram' => "surnames#histogram", :as => "surnames_histogram"
 
   resources :surnames
 
+  #chart page
   get 'histogram' => 'visualizations#histogram', :as => "histogram"
+
+  get 'directed_graph' => 'visualizations#directed_graph', :as => "directed_graph"
 
 
   # The priority is based upon order of creation: first created -> highest priority.
