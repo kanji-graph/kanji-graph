@@ -37,5 +37,6 @@ class Surname < ActiveRecord::Base
       end
       components << component
     end
+    components
   end
 end

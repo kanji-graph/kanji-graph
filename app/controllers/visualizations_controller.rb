@@ -5,7 +5,7 @@ class VisualizationsController < ApplicationController
   def directed_graph
     @nodes = Surname.nodes.count
     @edges = Surname.all.count
-    @components
+    @components = Surname.components.count
   end
 
   def miserables
