@@ -42,7 +42,7 @@ class Surname < ActiveRecord::Base
   end
 
   def ensure_name_is_kanji_only
-    if self.name.chars.any? { |char| char.ord < 19968 || char.ord > 40879 }
+    if self.name.chars.any? { |char| char.ord < 19968 || char.ord > 40879 || char.ord == 12293 }
       errors.add(:name, "must be in kanji.")
     end
   end
