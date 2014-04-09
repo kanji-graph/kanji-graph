@@ -20,4 +20,10 @@ class Surname < ActiveRecord::Base
     self.pluck(:name).map { |name| { source: nodes.index(name[0]),
                                      target: nodes.index(name[1]) } }
   end
+
+  def self.components
+    edges = Surname.links.collect{|hsh| [hsh[:source], hsh[:target]].sort}
+    nodes = edges.flatten.uniq
+    binding.pry
+  end
 end

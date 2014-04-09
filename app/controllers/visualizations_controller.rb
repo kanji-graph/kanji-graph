@@ -3,8 +3,8 @@ class VisualizationsController < ApplicationController
   end
 
   def directed_graph
-    @nodes
-    @edges
+    @nodes = Surname.nodes.count
+    @edges = Surname.all.count
     @components
   end
 
