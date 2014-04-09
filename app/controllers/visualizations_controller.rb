@@ -7,6 +7,15 @@ class VisualizationsController < ApplicationController
     @edges = Surname.all.count
     @components = Surname.components.count
     @surname = Surname.new
+    @surnames = Surname.all
+  end
+
+  def directed_graph_large
+    @nodes = Surname.nodes.count
+    @edges = Surname.all.count
+    @components = Surname.components.count
+    @surname = Surname.new
+    @surnames = Surname.all
   end
 
   def miserables

@@ -39,7 +39,7 @@ class SurnamesController < ApplicationController
     respond_to do |format|
       if @surname.save
         format.html { redirect_to @surname, notice: 'Surname was successfully created.' }
-        format.js { render 'redraw' }
+        format.js { render :js => "window.location = '/directed_graph'" }
       else
         format.html do
           render action: 'new'
