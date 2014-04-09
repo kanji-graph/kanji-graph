@@ -1,4 +1,5 @@
 class Surname < ActiveRecord::Base
+  validates :name, :presence => true
   validate :ensure_name_is_kanji_only
   def self.histogram_data
     names = self.pluck(:name)

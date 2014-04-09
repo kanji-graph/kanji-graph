@@ -39,10 +39,14 @@ class SurnamesController < ApplicationController
     respond_to do |format|
       if @surname.save
         format.html { redirect_to @surname, notice: 'Surname was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @surname }
+        format.js { render 'redraw' }
       else
-        format.html { render action: 'new' }
-        format.json { render json: @surname.errors, status: :unprocessable_entity }
+        format.html do
+          render action: 'new'
+        end
+        format.js do 
+          render 'errors'
+        end
       end
     end
   end
