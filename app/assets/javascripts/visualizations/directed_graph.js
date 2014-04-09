@@ -15,6 +15,30 @@ $(document).ready(function(){
       .attr("width", width)
       .attr("height", height);
 
+  /*var marker = svg.append("defs")
+    .append("marker")
+      .attr("id", "end_marker")
+      .attr("viewBox", "0 0 12 12")
+      .attr("stroke-width", "2");
+
+  marker.append("path")*/
+
+    svg.append("defs").append("marker")
+    .attr("id", "end_marker")
+    .attr("viewBox", "0 -5 10 10")
+    .attr("refX", 25)
+    .attr("refY", -1)
+    .attr("markerWidth", 3)
+    .attr("markerHeight", 3)
+    .attr("orient", "auto")
+  .append("path")
+    .attr("d", "M0,-5L10,0L0,5");
+      
+  //marker.append("circle")
+   // .attr("cx", 6)
+    //.attr("cy", 6)
+    //.attr("r", 5);
+
   d3.json("surnames/directed_graph", function(error, graph) {
     var nodes = graph.nodes.slice(),
         links = [],
@@ -37,7 +61,8 @@ $(document).ready(function(){
     var link = svg.selectAll(".link")
         .data(bilinks)
       .enter().append("path")
-        .attr("class", "link");
+        .attr("class", "link")
+        .attr("marker-end", "url(#end_marker)");
 
     var node = svg.selectAll(".node")
         .data(graph.nodes)
