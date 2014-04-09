@@ -1,0 +1,9 @@
+<div id="error_explanation" class="remote_errors">
+  <h2><%= pluralize(@surname.errors.count, "error") %> prohibited this surname from being saved:</h2>
+
+  <ul>
+    <% @surname.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+</div>
