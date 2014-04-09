@@ -11,18 +11,15 @@ $(document).ready(function(){
       .linkStrength(.9)
       .size([width, height]);
 
-  var svg = d3.select("body").append("svg")
+  var svg = d3.select("#diagram").append("svg")
       .attr("width", width)
       .attr("height", height);
 
-  /*var marker = svg.append("defs")
-    .append("marker")
-      .attr("id", "end_marker")
-      .attr("viewBox", "0 0 12 12")
-      .attr("stroke-width", "2");
 
-  marker.append("path")*/
-
+  // !!! Diagram's position on page
+  var group = svg.append("g")
+    .attr("transform", "translate(-100, 0)")
+  /*
     svg.append("defs").append("marker")
     .attr("id", "end_marker")
     .attr("viewBox", "0 -5 10 10")
@@ -38,6 +35,7 @@ $(document).ready(function(){
    // .attr("cx", 6)
     //.attr("cy", 6)
     //.attr("r", 5);
+  */
 
   d3.json("surnames/directed_graph", function(error, graph) {
     var nodes = graph.nodes.slice(),
@@ -58,13 +56,13 @@ $(document).ready(function(){
         .links(links)
         .start();
 
-    var link = svg.selectAll(".link")
+    var link = group.selectAll(".link")
         .data(bilinks)
       .enter().append("path")
         .attr("class", "link")
         .attr("marker-end", "url(#end_marker)");
 
-    var node = svg.selectAll(".node")
+    var node = group.selectAll(".node")
         .data(graph.nodes)
       .enter().append("g");
     var circle = node.append("circle")

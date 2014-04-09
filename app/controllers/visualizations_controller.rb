@@ -3,6 +3,9 @@ class VisualizationsController < ApplicationController
   end
 
   def directed_graph
+    @nodes
+    @edges
+    @components
   end
 
   def miserables
