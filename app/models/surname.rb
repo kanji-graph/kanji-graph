@@ -21,9 +21,21 @@ class Surname < ActiveRecord::Base
                                      target: nodes.index(name[1]) } }
   end
 
+  def self.edges
+    self.links.collect{|hsh| [hsh[:source], hsh[:target]].sort}
+  end
+
   def self.components
-    edges = Surname.links.collect{|hsh| [hsh[:source], hsh[:target]].sort}
-    nodes = edges.flatten.uniq
-    binding.pry
+    edges = self.edges
+    components = []
+    while edges.any? 
+      component = edges.shift
+      while edges.select { |edge| !(edge & component).empty? }.any?
+        component << edges.select { |edge| !(edge & component).empty? }
+        edges.delete_if { |edge| !(edge & component).empty? }
+        component = component.flatten.uniq
+      end
+      components << component
+    end
   end
 end
