@@ -6,6 +6,7 @@ class VisualizationsController < ApplicationController
     @nodes = Surname.nodes.count
     @edges = Surname.all.count
     @components = Surname.components.count
+    @surname = Surname.new
   end
 
   def miserables

@@ -1,0 +1,21 @@
+<%= form_for(@surname, :remote => true) do |f| %>
+  <% if @surname.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@surname.errors.count, "error") %> prohibited this surname from being saved:</h2>
+
+      <ul>
+      <% @surname.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name, "Surname" %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Add" %>
+  </div>
+<% end %>

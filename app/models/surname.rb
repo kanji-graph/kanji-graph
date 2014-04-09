@@ -1,4 +1,5 @@
 class Surname < ActiveRecord::Base
+  validate :ensure_name_is_kanji_only
   def self.histogram_data
     names = self.pluck(:name)
     kanji = names.join("").split("")
@@ -38,5 +39,11 @@ class Surname < ActiveRecord::Base
       components << component
     end
     components
+  end
+
+  def ensure_name_is_kanji_only
+    if self.name.chars.any? { |char| char.ord < 19968 || char.ord > 40879 }
+      errors.add(:name, "must be in kanji.")
+    end
   end
 end
