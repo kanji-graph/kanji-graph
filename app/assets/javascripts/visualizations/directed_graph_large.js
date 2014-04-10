@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-  var width = 800,
+  var width = 776,
       height = 800;
 
   var color = d3.scale.category20();
@@ -45,24 +45,27 @@ $(document).ready(function(){
         .attr("class", "link")
         .attr("marker-end", "url(#end_marker)");
 
+    /* 
+     * <circle class="node" r="12" style="fill: rgb(255, 255, 255);"></circle>
+     * <text y="5" style="color: rgb(75, 75, 75); text-anchor: middle;">田</text>
+     * <circle class="node" r="12" style="fill: rgba(255, 255, 255, 0); stroke: rgb(75, 75, 75);"></circle> */
     var node = group.selectAll(".node")
         .data(graph.nodes)
       .enter().append("g");
-    var circle = node.append("circle")
-          .attr("class", "node")
+    var background = node.append("circle")
           .attr("r", 12)
           .style("fill", "white")
-          .style("stroke", "#4b4b4b")
-          .call(force.drag);
     var text = node.append("text")
           .attr("y", "5")
           .style("color", "#4b4b4b")
           .style('text-anchor', 'middle')
           .text(function(d) { return d.name; });
-
-
-    node.append("title")
-        .text(function(d) { return d.name; });
+    var circle = node.append("circle")
+          .attr("class", "node")
+          .attr("r", 12)
+          .style("fill", "rgba(255, 255, 255, 0)")
+          .style("stroke", "#4b4b4b");
+    node.call(force.drag);
 
     force.on("tick", function() {
       link.attr("d", function(d) {
