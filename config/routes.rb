@@ -6,13 +6,13 @@ Rails.application.routes.draw do
   get 'surnames/directed_graph_small' => "surnames#directed_graph_small", :as => "surnames_directed_graph"
   get 'surnames/directed_graph_large' => "surnames#directed_graph_large", :as => "surnames_directed_graph_large"
 
-  resources :surnames
-
   #chart pages
   get 'histogram' => 'visualizations#histogram', :as => "histogram"
   get 'directed_graph_small' => 'visualizations#directed_graph_small', :as => "directed_graph_small"
   get 'directed_graph_large' => 'visualizations#directed_graph_large', :as => "directed_graph_large"
   get 'miserables' => 'visualizations#miserables'
+
+  resources :surnames
 
 
   # The priority is based upon order of creation: first created -> highest priority.
