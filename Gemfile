@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 
 
 
-gem 'pg'
 gem 'd3-rails'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.0.rc2'
