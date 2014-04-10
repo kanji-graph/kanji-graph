@@ -88,6 +88,7 @@ $(document).ready(function(){
     //node.append("title")
     //    .text(function(d) { return d.name; });
 
+
     force.on("tick", function() {
       link.attr("d", function(d) {
         return "M" + d[0].x + "," + d[0].y
@@ -99,4 +100,5 @@ $(document).ready(function(){
       });
     });
   });
+ $('#test').tooltip(options)
 });
