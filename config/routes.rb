@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   #chart pages
   get 'histogram' => 'visualizations#histogram', :as => "histogram"
-  get 'directed_graph_small' => 'visualizations#directed_graph_small', :as => "directed_graph"
+  get 'directed_graph_small' => 'visualizations#directed_graph_small', :as => "directed_graph_small"
   get 'directed_graph_large' => 'visualizations#directed_graph_large', :as => "directed_graph_large"
   get 'miserables' => 'visualizations#miserables'
 
