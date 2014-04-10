@@ -5,43 +5,23 @@ $(document).ready(function(){
 
   var color = d3.scale.category20();
 
+  // configure force graph options
   var force = d3.layout.force()
       .charge(-160)
       .linkDistance(30)
       .linkStrength(.9)
       .size([width, height]);
 
-  var tip2 = d3.tip()
-    .attr('class', 'd3-tip')
-    .html("<p>Hello world!</p>");
-
+  // main svg element
   var svg = d3.select("#directed_graph_small").append("svg")
       .attr("width", width)
       .attr("height", height)
-      .call(tip2);
 
-
-  // !!! Diagram's position on page
+  // group for all elements
   var group = svg.append("g")
-    .attr("transform", "translate(-100, 0)")
-  /*
-    svg.append("defs").append("marker")
-    .attr("id", "end_marker")
-    .attr("viewBox", "0 -5 10 10")
-    .attr("refX", 25)
-    .attr("refY", -1)
-    .attr("markerWidth", 3)
-    .attr("markerHeight", 3)
-    .attr("orient", "auto")
-  .append("path")
-    .attr("d", "M0,-5L10,0L0,5");
-      
-  //marker.append("circle")
-   // .attr("cx", 6)
-    //.attr("cy", 6)
-    //.attr("r", 5);
-  */
+    .attr("transform", "translate(-100, 0)");
 
+  // AJAX request for JSON
   d3.json("surnames/directed_graph_small", function(error, graph) {
     var nodes = graph.nodes.slice(),
         links = [],
@@ -50,7 +30,7 @@ $(document).ready(function(){
     graph.links.forEach(function(link) {
       var s = nodes[link.source],
           t = nodes[link.target],
-          i = {}; // intermediate node
+          i = {}; // intermediate node for curved links
       nodes.push(i);
       links.push({source: s, target: i}, {source: i, target: t});
       bilinks.push([s, i, t]);
@@ -61,20 +41,19 @@ $(document).ready(function(){
         .links(links)
         .start();
 
+    //create links
     var link = group.selectAll(".link")
         .data(bilinks)
       .enter().append("path")
         .attr("class", "link")
         .attr("marker-end", "url(#end_marker)");
 
-    /* 
-     * <circle class="node" r="12" style="fill: rgb(255, 255, 255);"></circle>
-     * <text y="5" style="color: rgb(75, 75, 75); text-anchor: middle;">田</text>
-     * <circle class="node" r="12" style="fill: rgba(255, 255, 255, 0); stroke: rgb(75, 75, 75);"></circle> */
-
+    //create nodes (<circle>, <text>, <circle>)
     var node = group.selectAll(".node")
         .data(graph.nodes)
-        .enter().append("g");
+        //data with no corresponding nodes (Right now there are none...)
+        .enter().append("g")
+        .call(force.drag);
     var background = node.append("circle")
           .attr("r", 12)
           .style("fill", "white")
@@ -88,16 +67,19 @@ $(document).ready(function(){
           .attr("r", 12)
           .style("fill", "rgba(255, 255, 255, 0)")
           .style("stroke", "#4b4b4b");
-    node.call(force.drag)
-      .on('mouseover', tip.show)
-      .on('mouseout', tip.hide);
 
+    // create tooltips
+    //    1) initialize function tip(vis)
+    var tip = d3.tip().attr('class', 'd3-tip').html(function(d) { return d.name }).offset([-7,0]);
 
+    //    2) call in context of svg ???
+    d3.select("#directed_graph_small svg").call(tip);
 
-    //node.append("title")
-    //    .text(function(d) { return d.name; });
-
-
+    //    3) bind to node mouseover event
+    node.on('mouseover', tip.show)
+      .on('mouseout', tip.hide)
+    
+    // update nodes on tick event 
     force.on("tick", function() {
       link.attr("d", function(d) {
         return "M" + d[0].x + "," + d[0].y
@@ -108,32 +90,26 @@ $(document).ready(function(){
         return "translate(" + d.x + "," + d.y + ")";
       });
     });
-  });
-
-  var tip = d3.tip()
-    .attr('class', 'd3-tip')
-    .html("<p>Hello world!</p>")
-    .offset([100,0]);
-  window.out_tip = tip
-
-  var tip3 = d3.tip()
-    .attr('class', 'd3-tip')
-    .html("<p>Hello Michael!</p>")
-    .offset([100,0]);
-
-  window.our_tip3 = tip3
-
-  var vis = d3.select(document.body)
-    .append('svg')
-    .call(tip3);
-
-    /*
-  vis.append('rect')
-    .attr('width', 20)
-    .attr('height', 20)
-    // Show and hide the tooltip
-    .on('mouseover', tip.show)
-    .on('mouseout', tip.hide);
-    */
+  }); // End AJAX Request
 
 });
+
+// Markers
+// =======
+/*
+   svg.append("defs").append("marker")
+   .attr("id", "end_marker")
+   .attr("viewBox", "0 -5 10 10")
+   .attr("refX", 25)
+   .attr("refY", -1)
+   .attr("markerWidth", 3)
+   .attr("markerHeight", 3)
+   .attr("orient", "auto")
+   .append("path")
+   .attr("d", "M0,-5L10,0L0,5");
+
+//marker.append("circle")
+// .attr("cx", 6)
+//.attr("cy", 6)
+//.attr("r", 5);
+*/
