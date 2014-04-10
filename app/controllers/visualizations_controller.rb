@@ -2,10 +2,10 @@ class VisualizationsController < ApplicationController
   def histogram 
   end
 
-  def directed_graph
-    @nodes = Surname.nodes.count
-    @edges = Surname.all.count
-    @components = Surname.components.count
+  def directed_graph_small
+    @nodes = Surname.small_graph_nodes.count
+    @edges = 10
+    @components = Surname.small_graph_components.count
     @surname = Surname.new
     @surnames = Surname.all
   end

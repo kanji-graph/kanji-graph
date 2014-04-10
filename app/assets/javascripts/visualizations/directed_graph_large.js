@@ -1,43 +1,26 @@
 $(document).ready(function(){
 
-  var width = 960,
-      height = 500;
+  var width = 800,
+      height = 800;
 
   var color = d3.scale.category20();
 
   var force = d3.layout.force()
-      .charge(-160)
+      .charge(-80)
       .linkDistance(30)
       .linkStrength(.9)
       .size([width, height]);
 
-  var svg = d3.select("#diagram").append("svg")
+  var svg = d3.select("#directed_graph_large").append("svg")
       .attr("width", width)
       .attr("height", height);
 
 
   // !!! Diagram's position on page
   var group = svg.append("g")
-    .attr("transform", "translate(-100, 0)")
-  /*
-    svg.append("defs").append("marker")
-    .attr("id", "end_marker")
-    .attr("viewBox", "0 -5 10 10")
-    .attr("refX", 25)
-    .attr("refY", -1)
-    .attr("markerWidth", 3)
-    .attr("markerHeight", 3)
-    .attr("orient", "auto")
-  .append("path")
-    .attr("d", "M0,-5L10,0L0,5");
-      
-  //marker.append("circle")
-   // .attr("cx", 6)
-    //.attr("cy", 6)
-    //.attr("r", 5);
-  */
+    .attr("transform", "translate(0, 0)")
 
-  d3.json("surnames/directed_graph", function(error, graph) {
+  d3.json("surnames/directed_graph_large", function(error, graph) {
     var nodes = graph.nodes.slice(),
         links = [],
         bilinks = [];

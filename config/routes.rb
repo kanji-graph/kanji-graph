@@ -1,16 +1,16 @@
 Rails.application.routes.draw do
-  #json request
-
   root 'visualizations#directed_graph'
 
+  #json requests
   get 'surnames/histogram' => "surnames#histogram", :as => "surnames_histogram"
-  get 'surnames/directed_graph' => "surnames#directed_graph", :as => "surnames_directed_graph"
+  get 'surnames/directed_graph_small' => "surnames#directed_graph_small", :as => "surnames_directed_graph"
+  get 'surnames/directed_graph_large' => "surnames#directed_graph_large", :as => "surnames_directed_graph_large"
 
   resources :surnames
 
   #chart pages
   get 'histogram' => 'visualizations#histogram', :as => "histogram"
-  get 'directed_graph' => 'visualizations#directed_graph', :as => "directed_graph"
+  get 'directed_graph_small' => 'visualizations#directed_graph_small', :as => "directed_graph"
   get 'directed_graph_large' => 'visualizations#directed_graph_large', :as => "directed_graph_large"
   get 'miserables' => 'visualizations#miserables'
 

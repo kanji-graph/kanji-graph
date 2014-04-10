@@ -6,9 +6,14 @@ class SurnamesController < ApplicationController
     render json: @histogram_data
   end
 
-  def directed_graph
-    @directed_graph_data = Surname.directed_graph_data
+  def directed_graph_small
+    @directed_graph_data = Surname.small_graph_data
     render json: @directed_graph_data
+  end
+
+  def directed_graph_large
+    @large_graph_data = Surname.large_graph_data
+    render json: @large_graph_data
   end
 
   # GET /surnames
@@ -39,7 +44,7 @@ class SurnamesController < ApplicationController
     respond_to do |format|
       if @surname.save
         format.html { redirect_to @surname, notice: 'Surname was successfully created.' }
-        format.js { render :js => "window.location = '/directed_graph'" }
+        format.js { render :js => "window.location = '/directed_graph_large'" }
       else
         format.html do
           render action: 'new'

@@ -17,7 +17,6 @@
 }
 
 // directed graph css
-
 .node {
   stroke: #fff;
   stroke-width: 1.5px;
@@ -29,8 +28,14 @@
   stroke-width: 3px;
 }
 
-#diagram {
+#directed_graph_small {
   border: solid 2px;
+}
+
+#directed_graph_large {
+  border: solid 2px;
+  height: 509px;
+  overflow: scroll;
 }
 
 #statistics {
