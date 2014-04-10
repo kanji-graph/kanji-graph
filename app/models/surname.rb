@@ -5,7 +5,7 @@ class Surname < ActiveRecord::Base
     names = self.pluck(:name)
     kanji = names.join("").split("")
     hash = kanji.group_by { |v| v }
-    hash.map{|key, value| {:kanji => key, :value => value.count}}
+    result = hash.map{|key, value| {:kanji => key, :value => value.count}}.sort_by { |hsh| hsh[:value] }.reverse
   end
 
   def self.large_graph_data
