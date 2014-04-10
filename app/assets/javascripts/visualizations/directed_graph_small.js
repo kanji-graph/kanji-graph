@@ -11,9 +11,14 @@ $(document).ready(function(){
       .linkStrength(.9)
       .size([width, height]);
 
+  var tip2 = d3.tip()
+    .attr('class', 'd3-tip')
+    .html("<p>Hello world!</p>");
+
   var svg = d3.select("#directed_graph_small").append("svg")
       .attr("width", width)
-      .attr("height", height);
+      .attr("height", height)
+      .call(tip2);
 
 
   // !!! Diagram's position on page
@@ -66,9 +71,10 @@ $(document).ready(function(){
      * <circle class="node" r="12" style="fill: rgb(255, 255, 255);"></circle>
      * <text y="5" style="color: rgb(75, 75, 75); text-anchor: middle;">田</text>
      * <circle class="node" r="12" style="fill: rgba(255, 255, 255, 0); stroke: rgb(75, 75, 75);"></circle> */
+
     var node = group.selectAll(".node")
         .data(graph.nodes)
-      .enter().append("g");
+        .enter().append("g");
     var background = node.append("circle")
           .attr("r", 12)
           .style("fill", "white")
@@ -82,7 +88,10 @@ $(document).ready(function(){
           .attr("r", 12)
           .style("fill", "rgba(255, 255, 255, 0)")
           .style("stroke", "#4b4b4b");
-    node.call(force.drag);
+    node.call(force.drag)
+      .on('mouseover', tip.show)
+      .on('mouseout', tip.hide);
+
 
 
     //node.append("title")
@@ -100,5 +109,31 @@ $(document).ready(function(){
       });
     });
   });
- $('#test').tooltip(options)
+
+  var tip = d3.tip()
+    .attr('class', 'd3-tip')
+    .html("<p>Hello world!</p>")
+    .offset([100,0]);
+  window.out_tip = tip
+
+  var tip3 = d3.tip()
+    .attr('class', 'd3-tip')
+    .html("<p>Hello Michael!</p>")
+    .offset([100,0]);
+
+  window.our_tip3 = tip3
+
+  var vis = d3.select(document.body)
+    .append('svg')
+    .call(tip3);
+
+    /*
+  vis.append('rect')
+    .attr('width', 20)
+    .attr('height', 20)
+    // Show and hide the tooltip
+    .on('mouseover', tip.show)
+    .on('mouseout', tip.hide);
+    */
+
 });

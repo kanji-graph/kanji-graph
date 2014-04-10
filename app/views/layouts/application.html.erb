@@ -3,7 +3,10 @@
 <head>
   <title>Hakaru</title>
   <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= stylesheet_link_tag    "//rawgithub.com/Caged/d3-tip/master/examples/example-styles.css" %>
   <%= javascript_include_tag 'application' %>
+  <%= javascript_include_tag "http://d3js.org/d3.v3.min.js" %>
+  <%= javascript_include_tag "http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js" %>
   <%= csrf_meta_tags %>
   <%= analytics_init if Rails.env.production? %>
 </head>
