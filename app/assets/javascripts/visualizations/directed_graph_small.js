@@ -117,14 +117,15 @@ $(document).ready(function(){
 
   function highlight_links(id) {
     // Select links where target or source == id
-    adjacent_links = d3.selectAll("path[target='" + id + "']", "path[source='" + id + "']");
+    adjacent_links = d3.selectAll("path[target='" + id + "'], path[source='" + id + "']");
+    window.our_adjacent_links = adjacent_links;
     // Add a class to these that will change their color! :D
     adjacent_links.attr("class", "link active");
   }
 
   function un_highlight_links(id) {
     // Select links where target or source == id
-    adjacent_links = d3.selectAll("path[target='" + id + "']", "path[source='" + id + "']")
+    adjacent_links = d3.selectAll("path[target='" + id + "'], path[source='" + id + "']")
     // Add a class to these that will change their color! :D
     adjacent_links.attr("class", "link");
   }
