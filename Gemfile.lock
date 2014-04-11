@@ -185,6 +185,7 @@ DEPENDENCIES
   google-analytics-rails
   jbuilder (~> 2.0)
   jquery-rails
+  nokogiri
   pg
   pry
   rails (= 4.1.0.rc2)
