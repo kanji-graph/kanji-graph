@@ -2,6 +2,9 @@ class VisualizationsController < ApplicationController
   def histogram 
   end
 
+  def add_and_remove
+  end
+
   def directed_graph_small
     @nodes = Surname.small_graph_nodes.count
     @edges = 10
@@ -17,6 +20,7 @@ class VisualizationsController < ApplicationController
     @surname = Surname.new
     @surnames = Surname.all
   end
+
 
   def miserables
     @@data = File.read("db/miserables.json")
