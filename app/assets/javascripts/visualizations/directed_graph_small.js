@@ -87,8 +87,8 @@ $(document).ready(function(){
     d3.select("#directed_graph_small svg").call(tip);
 
     //    3) bind to node mouseover event
-    node.on('mouseover', tip.show)
-      .on('mouseout', tip.hide)
+    node.on('mouseover.tooltip', tip.show)
+      .on('mouseout.tooltip', tip.hide)
 
     // update nodes on tick event 
     force.on("tick", function() {
@@ -104,11 +104,13 @@ $(document).ready(function(){
 
     // Highlight adjacent edges on node hover
 
-    node.on('mouseover', function(d) {
-      highlight_links(d.id)})
-      .on('mouseout', function(d) {
-       un_highlight_links(d.id)
+    node.on('mouseover.links', function(d) {
+      highlight_links(d.id);
+    })
+      .on('mouseout.links', function(d) {
+       un_highlight_links(d.id);
       });
+      
   }); // End AJAX Request
 
 
