@@ -5,6 +5,9 @@ class VisualizationsController < ApplicationController
   def add_and_remove
   end
 
+  def add_and_remove_small
+  end
+
   def directed_graph_small
     @nodes = Surname.small_graph_nodes.count
     @edges = 10

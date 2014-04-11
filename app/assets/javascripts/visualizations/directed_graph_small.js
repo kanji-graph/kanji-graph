@@ -22,7 +22,7 @@ $(document).ready(function(){
     .attr("transform", "translate(0, 0)");
 
   group.append("circle")
-    .attr("r", "100")
+    .attr("r", "125")
     .style("fill", "rgba(225, 0, 0, .2)")
     .attr("transform", "translate(388, 250)");
 
@@ -63,7 +63,7 @@ $(document).ready(function(){
         .data(graph.nodes)
         //data with no corresponding nodes (Right now there are none...)
         .enter().append("g")
-       // .call(force.drag);
+        .call(force.drag);
     var background = node.append("circle")
           .attr("r", 12)
           .style("fill", "white")
@@ -89,6 +89,8 @@ $(document).ready(function(){
     //    3) bind to node mouseover event
     node.on('mouseover.tooltip', tip.show)
       .on('mouseout.tooltip', tip.hide)
+      .on('mousedown.tooltip', tip.hide)
+      .on('mouseup.tooltip', tip.show);
 
     // update nodes on tick event 
     force.on("tick", function() {

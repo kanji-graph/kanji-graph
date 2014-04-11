@@ -16,6 +16,8 @@ Rails.application.routes.draw do
     :as => "directed_graph_large"
   get 'add_and_remove' => 'visualizations#add_and_remove', 
     :as => "add_and_remove_path"
+  get 'add_and_remove_small' => 'visualizations#add_and_remove_small', 
+    :as => "add_and_remove_small_path"
   get 'miserables' => 'visualizations#miserables'
 
   resources :surnames
