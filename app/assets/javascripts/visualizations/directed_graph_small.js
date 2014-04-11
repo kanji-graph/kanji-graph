@@ -35,6 +35,7 @@ $(document).ready(function(){
       links.push({source: s, target: i}, {source: i, target: t});
       bilinks.push([s, i, t]);
     });
+    console.log(bilinks);
 
     force
         .nodes(nodes)
@@ -46,14 +47,17 @@ $(document).ready(function(){
         .data(bilinks)
       .enter().append("path")
         .attr("class", "link")
+        .attr("source", function(d) {return 'something'})
+        //.attr("class", function(d) {return "link " + d.source + d.target})
         .attr("marker-end", "url(#end_marker)");
+        console.log(bilinks);
 
     //create nodes (<circle>, <text>, <circle>)
     var node = group.selectAll(".node")
         .data(graph.nodes)
         //data with no corresponding nodes (Right now there are none...)
         .enter().append("g")
-        .call(force.drag);
+       // .call(force.drag);
     var background = node.append("circle")
           .attr("r", 12)
           .style("fill", "white")
@@ -63,7 +67,8 @@ $(document).ready(function(){
           .style('text-anchor', 'middle')
           .text(function(d) { return d.name; });
     var circle = node.append("circle")
-          .attr("class", "node")
+          .attr("id", function(d) {return d.index})
+          .attr("class", "node") 
           .attr("r", 12)
           .style("fill", "rgba(255, 255, 255, 0)")
           .style("stroke", "#4b4b4b");
@@ -78,6 +83,14 @@ $(document).ready(function(){
     //    3) bind to node mouseover event
     node.on('mouseover', tip.show)
       .on('mouseout', tip.hide)
+
+
+    // Highlight adjacent edges on node hover
+  //  var node = group.selectAll(".node")
+
+   // node.on('mouseover', [nodecolorchange])
+
+  //    .on('mouseout', [nodecolorunchange])
     
     // update nodes on tick event 
     force.on("tick", function() {

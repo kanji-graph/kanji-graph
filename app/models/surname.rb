@@ -28,14 +28,23 @@ class Surname < ActiveRecord::Base
                                      target: nodes.index(name[1]) } }
   end
 
+  def self.small_graph_names
+    self.limit(10).pluck(:name)
+  end
+
   def self.small_graph_nodes
-    self.limit(10).pluck(:name).join("").split("").uniq.map { |name| {name: name} }
+    # self.limit(10).pluck(:name).join("").split("").uniq.map { |name| {name: name} }
+    nodes_array = self.small_graph_names.join("").split("").uniq
+    nodes_array.each_with_index.map { |name, index| {name: name,
+                                                     id: index} }
   end
 
   def self.small_graph_links
-    nodes = self.small_graph_nodes.map {|hsh| hsh[:name] }
-    self.limit(10).pluck(:name).map { |name| { source: nodes.index(name[0]),
-                                     target: nodes.index(name[1]) } }
+    # nodes = self.small_graph_nodes.map {|hsh| hsh[:name] }
+    # self.limit(10).pluck(:name).map { |name| { source: nodes.index(name[0]),
+    #                                 target: nodes.index(name[1]) } }
+    nodes_with_ids = self.small_graph_names.map{ |name| {source: self.small_graph_nodes.select{|hsh| hsh[:name] == name[0]}[0][:id],
+                                                         target: self.small_graph_nodes.select{|hsh| hsh[:name] == name[1]}[0][:id]}}
   end
 
   def self.edges
