@@ -28,6 +28,10 @@
   stroke-width: 3px;
 }
 
+.link.active {
+  stroke: #ff0000;
+} 
+
 #directed_graph_small {
   border: solid 2px;
 }

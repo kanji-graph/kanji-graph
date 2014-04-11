@@ -42,7 +42,6 @@ $(document).ready(function(){
       links.push({source: s, target: i}, {source: i, target: t});
       bilinks.push([s, i, t]);
     });
-    console.log(bilinks);
 
     force
         .nodes(nodes)
@@ -91,14 +90,6 @@ $(document).ready(function(){
     node.on('mouseover', tip.show)
       .on('mouseout', tip.hide)
 
-
-    // Highlight adjacent edges on node hover
-  //  var node = group.selectAll(".node")
-
-   // node.on('mouseover', [nodecolorchange])
-
-  //    .on('mouseout', [nodecolorunchange])
-    
     // update nodes on tick event 
     force.on("tick", function() {
       link.attr("d", function(d) {
@@ -110,9 +101,35 @@ $(document).ready(function(){
         return "translate(" + d.x + "," + d.y + ")";
       });
     });
+
+    // Highlight adjacent edges on node hover
+
+    node.on('mouseover', function(d) {
+      highlight_links(d.id)})
+      .on('mouseout', function(d) {
+       un_highlight_links(d.id)
+      });
   }); // End AJAX Request
 
+
+    
 });
+
+  function highlight_links(id) {
+    // Select links where target or source == id
+    adjacent_links = d3.selectAll("path[target='" + id + "']", "path[source='" + id + "']");
+    // Add a class to these that will change their color! :D
+    adjacent_links.attr("class", "link active");
+  }
+
+  function un_highlight_links(id) {
+    // Select links where target or source == id
+    adjacent_links = d3.selectAll("path[target='" + id + "']", "path[source='" + id + "']")
+    // Add a class to these that will change their color! :D
+    adjacent_links.attr("class", "link");
+  }
+
+
 
 // Markers
 // =======
