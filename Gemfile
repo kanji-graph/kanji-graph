@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'mojinizer'
 
 gem 'nokogiri'
 gem 'd3-rails'

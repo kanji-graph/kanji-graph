@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
-  var width = 960,
-      height = 500;
+  var width = 750,
+      height = 518;
 
   var color = d3.scale.category20();
 
@@ -19,10 +19,17 @@ $(document).ready(function(){
 
   // group for all elements
   var group = svg.append("g")
-    .attr("transform", "translate(-100, 0)");
+    .attr("transform", "translate(0, 0)");
+
+  group.append("circle")
+    .attr("r", "100")
+    .style("fill", "rgba(225, 0, 0, .2)")
+    .attr("transform", "translate(388, 250)");
+
 
   // AJAX request for JSON
   d3.json("surnames/directed_graph_small", function(error, graph) {
+    if (error) return console.warn(error);
     var nodes = graph.nodes.slice(),
         links = [],
         bilinks = [];
@@ -70,7 +77,7 @@ $(document).ready(function(){
 
     // create tooltips
     //    1) initialize function tip(vis)
-    var tip = d3.tip().attr('class', 'd3-tip').html(function(d) { return d.name }).offset([-7,0]);
+    var tip = d3.tip().attr('class', 'd3-tip').html(function(d) { return d.meaning }).offset([-7,0]);
 
     //    2) call in context of svg ???
     d3.select("#directed_graph_small svg").call(tip);

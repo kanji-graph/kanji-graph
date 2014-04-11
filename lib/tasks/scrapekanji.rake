@@ -6,8 +6,9 @@ task :scrapekanji => :environment do
   characters.each do |character|
     page = Nokogiri::HTML(open("http://jisho.org/kanji/details/#{URI.escape(character)}"))
     meaning = page.css(".english_meanings p").children.first.text[0..-2]
+    kun_reading =
     Character.create!(:name => character, :meaning => meaning)
-    puts "Scraped: #{character}, Meaning: #{meaning}"
+    puts "Scraped: #{character}, Meaning: #{meaning} "
   end
 
   # patches

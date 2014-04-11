@@ -19,7 +19,7 @@ $(document).ready(function(){
   // !!! Diagram's position on page
   var group = svg.append("g")
     .attr("transform", "translate(0, 0)")
-
+  
   d3.json("surnames/directed_graph_large", function(error, graph) {
     var nodes = graph.nodes.slice(),
         links = [],
@@ -45,10 +45,6 @@ $(document).ready(function(){
         .attr("class", "link")
         .attr("marker-end", "url(#end_marker)");
 
-    /* 
-     * <circle class="node" r="12" style="fill: rgb(255, 255, 255);"></circle>
-     * <text y="5" style="color: rgb(75, 75, 75); text-anchor: middle;">田</text>
-     * <circle class="node" r="12" style="fill: rgba(255, 255, 255, 0); stroke: rgb(75, 75, 75);"></circle> */
     var node = group.selectAll(".node")
         .data(graph.nodes)
       .enter().append("g");
@@ -66,6 +62,17 @@ $(document).ready(function(){
           .style("fill", "rgba(255, 255, 255, 0)")
           .style("stroke", "#4b4b4b");
     node.call(force.drag);
+
+    // create tooltips
+    //    1) initialize function tip(vis)
+    var tip = d3.tip().attr('class', 'd3-tip').html(function(d) { return d.meaning }).offset([-7,0]);
+
+    //    2) call in context of svg ???
+    d3.select("#directed_graph_large svg").call(tip);
+
+    //    3) bind to node mouseover event
+    node.on('mouseover', tip.show)
+      .on('mouseout', tip.hide)
 
     force.on("tick", function() {
       link.attr("d", function(d) {

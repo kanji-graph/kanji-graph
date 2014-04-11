@@ -77,6 +77,9 @@ GEM
     mime-types (1.25.1)
     mini_portile (0.5.3)
     minitest (5.3.2)
+    moji (1.6)
+    mojinizer (0.2.2)
+      moji (~> 1.6)
     multi_json (1.9.2)
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
@@ -185,6 +188,7 @@ DEPENDENCIES
   google-analytics-rails
   jbuilder (~> 2.0)
   jquery-rails
+  mojinizer
   nokogiri
   pg
   pry

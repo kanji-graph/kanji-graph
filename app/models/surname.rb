@@ -19,7 +19,9 @@ class Surname < ActiveRecord::Base
   end
 
   def self.nodes
-    self.pluck(:name).join("").split("").uniq.map { |name| {name: name} }
+    self.pluck(:name).join("").split("").uniq.map do |name| 
+      { name: name, meaning: Character.find_by(:name => name).meaning }
+    end
   end
 
   def self.links
@@ -29,7 +31,9 @@ class Surname < ActiveRecord::Base
   end
 
   def self.small_graph_nodes
-    self.limit(10).pluck(:name).join("").split("").uniq.map { |name| {name: name} }
+    self.limit(10).pluck(:name).join("").split("").uniq.map do |name| 
+      { name: name, meaning: Character.find_by(:name => name).meaning }
+    end
   end
 
   def self.small_graph_links
