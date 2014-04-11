@@ -1,5 +1,5 @@
 var graph;
-function myGraph(el) {
+function myGraph(vis_div) {
 
 // Add and remove elements on the graph object
 this.addNode = function (id) {
@@ -11,15 +11,20 @@ this.removeNode = function (id) {
     var i = 0;
     var n = findNode(id);
     while (i < links.length) {
+        //individual links are objects
         if ((links[i]['source'] == n)||(links[i]['target'] == n))
         {
+            //remove link
             links.splice(i,1);
         }
         else i++;
     }
+    //remove node
     nodes.splice(findNodeIndex(id),1);
     update();
 };
+
+
 
 this.removeLink = function (source,target){
     for(var i=0;i<links.length;i++)
@@ -30,6 +35,7 @@ this.removeLink = function (source,target){
             break;
         }
     }
+    //redraw
     update();
 };
 
@@ -43,8 +49,9 @@ this.removeAllNodes = function(){
     update();
 };
 
-this.addLink = function (source, target, value) {
-    links.push({"source":findNode(source),"target":findNode(target),"value":value});
+
+this.addLink = function (source_id, target_id, value) {
+    links.push({"source":findNode(source_id),"target":findNode(target_id),"value":value});
     update();
 };
 
@@ -64,7 +71,7 @@ var findNodeIndex = function(id) {
 // set up the D3 visualisation in the specified element
 var w = 500,
     h = 500;
-var vis = d3.select("#svgdiv")
+var vis = d3.select(vis_div)
     .append("svg:svg")
     .attr("width", w)
     .attr("height", h)

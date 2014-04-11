@@ -22,7 +22,7 @@ $(document).ready(function(){
     .attr("transform", "translate(0, 0)");
 
   group.append("circle")
-    .attr("r", "125")
+    .attr("r", "100")
     .style("fill", "rgba(225, 0, 0, .2)")
     .attr("transform", "translate(388, 250)");
 
