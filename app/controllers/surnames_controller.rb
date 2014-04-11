@@ -7,8 +7,8 @@ class SurnamesController < ApplicationController
   end
 
   def directed_graph_small
-    @directed_graph_data = Surname.small_graph_data
-    render json: @directed_graph_data
+    @small_graph_data = Surname.small_graph_data
+    render json: @small_graph_data
   end
 
   def directed_graph_large
