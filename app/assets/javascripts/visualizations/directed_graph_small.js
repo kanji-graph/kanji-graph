@@ -54,10 +54,10 @@ $(document).ready(function(){
         .data(bilinks)
       .enter().append("path")
         .attr("class", "link")
-        .attr("source", function(d) {return 'something'})
-        //.attr("class", function(d) {return "link " + d.source + d.target})
+        .attr("source", function(d) {return d[0].index})
+        .attr("target", function(d) {return d[2].index})
         .attr("marker-end", "url(#end_marker)");
-        console.log(bilinks);
+        window.our_bilinks = bilinks;
 
     //create nodes (<circle>, <text>, <circle>)
     var node = group.selectAll(".node")
