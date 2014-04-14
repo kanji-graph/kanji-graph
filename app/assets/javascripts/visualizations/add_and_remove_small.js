@@ -2,8 +2,8 @@ var graph;
 function myGraph(vis_div) {
 
 // Add and remove elements on the graph object
-this.addNode = function (id) {
-    nodes.push({"id":id});
+this.addNode = function (id, name) {
+    nodes.push({"id":id, "name": name});
     update();
 };
 
@@ -108,14 +108,30 @@ var update = function () {
         .attr("class", "node")
         .call(force.drag);
 
-    nodeEnter.append("svg:circle")
-    .attr("r", 16)
-    .attr("id",function(d) { return "Node;"+d.id;})
-    .attr("class","nodeStrokeClass");
+    var background = node.append("circle")
+          .attr("r", 12)
+          .style("fill", "white");
+    var text = node.append("text")
+          .attr("y", "5")
+          .style("color", "#4b4b4b")
+          .style('text-anchor', 'middle')
+          .text(function(d) { 
+            return d.name; });
+    var circle = node.append("circle")
+          .attr("id", function(d) {return d.index})
+          .attr("class", "node") 
+          .attr("r", 12)
+          .style("fill", "rgba(255, 255, 255, 0)")
+          .style("stroke", "#4b4b4b");
 
-    nodeEnter.append("svg:text")
-    .attr("class","textClass")
-    .text( function(d){return d.id;}) ;
+    // nodeEnter.append("svg:circle")
+    // .attr("r", 16)
+    // .attr("id",function(d) { return "Node;"+d.id;})
+    // .attr("class","nodeStrokeClass");
+
+    // nodeEnter.append("svg:text")
+    // .attr("class","textClass")
+    // .text( function(d){return d.name;}) ;
 
     node.exit().remove();
     force.on("tick", function() {
@@ -151,7 +167,7 @@ function drawGraph()
     if (error) return console.warn(error);
 
     json.nodes.forEach(function(node){
-      graph.addNode(node.id);
+      graph.addNode(node.id, node.name);
     });
 
     json.links.forEach(function(link){
