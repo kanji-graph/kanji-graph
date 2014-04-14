@@ -101,23 +101,23 @@ var update = function () {
     link.exit().remove();
 
     var node = vis.selectAll("g.node")
-        .data(nodes, function(d) { 
-            return d.id;});
+        .data(nodes);
 
+    // handle nodes that don't exist yet
     var nodeEnter = node.enter().append("g")
         .attr("class", "node")
         .call(force.drag);
 
-    var background = node.append("circle")
+    var background = nodeEnter.append("circle")
           .attr("r", 12)
           .style("fill", "white");
-    var text = node.append("text")
+    var text = nodeEnter.append("text")
           .attr("y", "5")
           .style("color", "#4b4b4b")
           .style('text-anchor', 'middle')
           .text(function(d) { 
             return d.name; });
-    var circle = node.append("circle")
+    var circle = nodeEnter.append("circle")
           .attr("id", function(d) {return d.index})
           .attr("class", "node") 
           .attr("r", 12)
