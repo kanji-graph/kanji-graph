@@ -17,9 +17,10 @@
 }
 
 // directed graph css
-.node {
+g.node circle {
   stroke: #fff;
   stroke-width: 1.5px;
+  z-index: 100;
 }
 
 .link {

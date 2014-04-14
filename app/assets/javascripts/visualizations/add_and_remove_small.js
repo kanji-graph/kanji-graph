@@ -1,6 +1,10 @@
 var graph;
 function myGraph(vis_div) {
 
+this.readNodes = function() {
+  return nodes;
+}
+
 // Add and remove elements on the graph object
 this.addNode = function (id, name) {
     nodes.push({"id":id, "name": name});
@@ -53,10 +57,11 @@ this.addLink = function (source_id, target_id, value) {
     update();
 };
 
+
 var findNode = function(id) {
-    for (var i in nodes) {
-        if (nodes[i]["id"] === id) return nodes[i];
-    };
+  for (var i in nodes) {
+    if (nodes[i]["id"] === id) return nodes[i];
+  };
 };
 
 var findNodeIndex = function(id) {
@@ -105,6 +110,7 @@ var update = function () {
 
     // handle nodes that don't exist yet
     var nodeEnter = node.enter().append("g")
+        .attr("class", "node")
         .call(force.drag);
 
     var background = nodeEnter.append("circle")
@@ -118,7 +124,6 @@ var update = function () {
             return d.name; });
     var circle = nodeEnter.append("circle")
           .attr("id", function(d) {return d.index})
-          .attr("class", "node") 
           .attr("r", 12)
           .style("fill", "rgba(255, 255, 255, 0)")
           .style("stroke", "#4b4b4b");
@@ -133,6 +138,7 @@ var update = function () {
     // .text( function(d){return d.name;}) ;
 
     node.exit().remove();
+
     force.on("tick", function() {
 
         node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y         + ")"; });
@@ -175,10 +181,3 @@ function drawGraph()
 
   });
 }
-/*graph = new myGraph("#svgdiv");
-  graph.addNode('A');
-  graph.addNode('B');
-  graph.addNode('C');
-  graph.addLink('A','B','10');
-  graph.addLink('A','C','8');
-  graph.addLink('B','C','15'); */
