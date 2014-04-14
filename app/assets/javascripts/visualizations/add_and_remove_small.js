@@ -105,7 +105,6 @@ var update = function () {
 
     // handle nodes that don't exist yet
     var nodeEnter = node.enter().append("g")
-        .attr("class", "node")
         .call(force.drag);
 
     var background = nodeEnter.append("circle")
