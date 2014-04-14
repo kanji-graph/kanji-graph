@@ -1,4 +1,4 @@
-var graph;
+/* var graph;
 function myGraph(vis_div) {
 
 // Add and remove elements on the graph object
@@ -24,8 +24,6 @@ this.removeNode = function (id) {
     update();
 };
 
-
-
 this.removeLink = function (source,target){
     for(var i=0;i<links.length;i++)
     {
@@ -49,15 +47,16 @@ this.removeAllNodes = function(){
     update();
 };
 
-
 this.addLink = function (source_id, target_id, value) {
+    //links are objects
     links.push({"source":findNode(source_id),"target":findNode(target_id),"value":value});
     update();
 };
 
 var findNode = function(id) {
     for (var i in nodes) {
-        if (nodes[i]["id"] === id) return nodes[i];};
+        if (nodes[i]["id"] === id) return nodes[i];
+    };
 };
 
 var findNodeIndex = function(id) {
@@ -65,7 +64,7 @@ var findNodeIndex = function(id) {
         if (nodes[i].id==id){
             return i;
         }
-        };
+    };
 };
 
 // set up the D3 visualisation in the specified element
@@ -90,7 +89,7 @@ var update = function () {
       var link = vis.selectAll("line")
         .data(links, function(d) {
             return d.source.id + "-" + d.target.id; 
-            });
+        });
 
     link.enter().append("line")
         .attr("id",function(d){return d.source.id + "-" + d.target.id;})
@@ -153,3 +152,4 @@ function drawGraph()
   graph.addLink('A','C','8');
   graph.addLink('B','C','15');
 }
+*/

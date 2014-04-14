@@ -28,23 +28,38 @@ $(document).ready(function(){
 
 
   // AJAX request for JSON
-  d3.json("surnames/directed_graph_small", function(error, graph) {
+  d3.json("surnames/directed_graph_small", function(error, json) {
     if (error) return console.warn(error);
-    var nodes = graph.nodes.slice(),
+    // graph.nodes.forTeach(function(node) {
+    //   graph.addNode(node);
+    // }
+    
+    var nodes = json.nodes.slice(),
         links = [],
         bilinks = [];
 
-    graph.links.forEach(function(link) {
+    window.our_graph = json;
+
+    //make links pointing to node objects
+    json.links.forEach(function(link) {
       var s = nodes[link.source],
           t = nodes[link.target],
           i = {}; // intermediate node for curved links
       nodes.push(i);
+
+      // links have source and target attributes which correspond to 
+      // nodes' indeces in the nodes array
+      // all of the other attributes get set by force layout
+
       links.push({source: s, target: i}, {source: i, target: t});
+      window.our_links = links;
       bilinks.push([s, i, t]);
     });
 
     force
+        //sets nodes array
         .nodes(nodes)
+        //sets links array
         .links(links)
         .start();
 
@@ -55,12 +70,11 @@ $(document).ready(function(){
         .attr("class", "link")
         .attr("source", function(d) {return d[0].index})
         .attr("target", function(d) {return d[2].index})
-        .attr("marker-end", "url(#end_marker)");
         window.our_bilinks = bilinks;
 
     //create nodes (<circle>, <text>, <circle>)
     var node = group.selectAll(".node")
-        .data(graph.nodes)
+        .data(json.nodes)
         //data with no corresponding nodes (Right now there are none...)
         .enter().append("g")
         .call(force.drag);
