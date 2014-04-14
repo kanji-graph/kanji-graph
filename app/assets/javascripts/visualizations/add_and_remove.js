@@ -1,6 +1,13 @@
-/* var graph;
+var graph;
 function myGraph(vis_div) {
 
+this.readNodes  = function() {
+  return nodes;
+}
+
+this.readLinks  = function() {
+  return links;
+}
 // Add and remove elements on the graph object
 this.addNode = function (id) {
     nodes.push({"id":id});
@@ -66,7 +73,7 @@ var findNodeIndex = function(id) {
         }
     };
 };
-
+/*
 // set up the D3 visualisation in the specified element
 var w = 500,
     h = 500;
