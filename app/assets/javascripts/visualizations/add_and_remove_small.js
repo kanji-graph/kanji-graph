@@ -1,4 +1,4 @@
-$(document).ready(function(){
+//$(document).ready(function(){
 
 
     var graph;
@@ -89,6 +89,7 @@ $(document).ready(function(){
         .append('svg:g');
 
     var force = d3.layout.force();
+    force.charge(-120);
 
     var nodes = force.nodes(),
         links = force.links();
@@ -99,7 +100,7 @@ $(document).ready(function(){
                 return d.source.id + "-" + d.target.id; 
             });
 
-        link.enter().append("line")
+        link.enter().insert("line", ".node")
             .attr("id",function(d){return d.source.id + "-" + d.target.id;})
             .attr("class","link");
         link.append("title")
@@ -159,12 +160,6 @@ $(document).ready(function(){
               .attr("y2", function(d) { return d.target.y; });
 
 
-        
-
-
-
-
-
         });
 
         // Restart the force layout.
@@ -197,7 +192,8 @@ $(document).ready(function(){
           graph.addLink(link.source, link.target, '20');
         });
 
+
       });
     }
     drawGraph();
-});
+//});
