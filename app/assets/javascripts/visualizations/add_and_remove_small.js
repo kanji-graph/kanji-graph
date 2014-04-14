@@ -144,9 +144,20 @@ update();
 
 function drawGraph()
 {
-  json.nodes.forEach(function(node){
-    graph = new myGraph("#svgdiv");
-    graph.addNode(node.name);
+  graph = new myGraph("#svgdiv");
+
+
+  d3.json("surnames/directed_graph_small", function(error, json) {
+    if (error) return console.warn(error);
+
+    json.nodes.forEach(function(node){
+      graph.addNode(node.id);
+    });
+
+    json.links.forEach(function(link){
+      graph.addLink(link.source, link.target, '10');
+    });
+
   });
 }
 /*graph = new myGraph("#svgdiv");
