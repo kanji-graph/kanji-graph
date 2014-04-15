@@ -125,6 +125,7 @@ var update = function () {
     .text( function(d){return d.id;}) ;
 
     node.exit().remove();
+
     force.on("tick", function() {
 
         node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y         + ")"; });

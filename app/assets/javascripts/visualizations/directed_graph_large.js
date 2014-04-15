@@ -16,6 +16,7 @@ $(document).ready(function(){
       .attr("height", height);
 
 
+
   // !!! Diagram's position on page
   var group = svg.append("g")
     .attr("transform", "translate(0, 0)")
@@ -43,6 +44,8 @@ $(document).ready(function(){
         .data(bilinks)
       .enter().append("path")
         .attr("class", "link")
+        .attr("source", function(d) {return d[0].index})
+        .attr("target", function(d) {return d[2].index})
         .attr("marker-end", "url(#end_marker)");
 
     var node = group.selectAll(".node")
@@ -57,6 +60,7 @@ $(document).ready(function(){
           .style('text-anchor', 'middle')
           .text(function(d) { return d.name; });
     var circle = node.append("circle")
+          .attr("id", function(d) {return d.index})
           .attr("class", "node")
           .attr("r", 12)
           .style("fill", "rgba(255, 255, 255, 0)")
@@ -71,8 +75,10 @@ $(document).ready(function(){
     d3.select("#directed_graph_large svg").call(tip);
 
     //    3) bind to node mouseover event
-    node.on('mouseover', tip.show)
-      .on('mouseout', tip.hide)
+    node.on('mouseover.tooltip', tip.show)
+      .on('mouseout.tooltip', tip.hide)
+      .on('mousedown.tooltip', tip.hide)
+      .on('mouseup.tooltip', tip.show);
 
     force.on("tick", function() {
       link.attr("d", function(d) {
@@ -83,6 +89,14 @@ $(document).ready(function(){
       node.attr("transform", function(d) {
         return "translate(" + d.x + "," + d.y + ")";
       });
+    });
+
+    // highlight links
+    node.on('mouseover.links', function(d) {
+      highlight_links(d.id);
+    })
+    .on('mouseout.links', function(d) {
+      un_highlight_links(d.id);
     });
   });
 

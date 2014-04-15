@@ -1,4 +1,4 @@
-//$(document).ready(function(){
+$(document).ready(function(){
 
 
     var graph;
@@ -208,6 +208,7 @@
         });
 
         json.links.forEach(function(link){
+          // source and target actually symbols
           graph.addLink(graph.readNodes()[link["source"]].name, graph.readNodes()[link["target"]].name, '20');
         });
       });
@@ -216,16 +217,11 @@
 
     $('.name_checkbox').on("change", function(){
       if ($(this).prop('checked')==false){ 
-        var id1 = graph.findNodeIndexByName($(this).val()[0]);
-        var id2 = graph.findNodeIndexByName($(this).val()[1]);
-        graph.removeLink(id2, id1);
-        if (!graph.linked(id1)) {
-          graph.removeNode(id1);
-        }
-        if (!graph.linked(id2)) {
-          graph.removeNode(id2);
-        }
+        //var node1 = graph.findNode($(this).val()[0]);
+        //var node2 = graph.findNode($(this).val()[1]);
+        first_kanji = $(this).val()[0];
+        alert(first_kanji); 
+        graph.removeNode(first_kanji);
       }
     });
-
-//});
+});

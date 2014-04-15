@@ -19,8 +19,11 @@ class Surname < ActiveRecord::Base
   end
 
   def self.nodes
-    self.pluck(:name).join("").split("").uniq.map do |name| 
-      { name: name, meaning: Character.find_by(:name => name).meaning }
+    kanji_array = self.pluck(:name).join("").split("").uniq
+    kanji_array.each_with_index.map do |name, index| 
+      { name: name, 
+        id: index, 
+        meaning: Character.find_by(:name => name).meaning }
     end
   end
 

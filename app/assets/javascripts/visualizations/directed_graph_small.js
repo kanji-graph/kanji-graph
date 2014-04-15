@@ -38,7 +38,6 @@ $(document).ready(function(){
         links = [],
         bilinks = [];
 
-    window.our_graph = json;
 
     //make links pointing to node objects
     json.links.forEach(function(link) {
@@ -70,7 +69,6 @@ $(document).ready(function(){
         .attr("class", "link")
         .attr("source", function(d) {return d[0].index})
         .attr("target", function(d) {return d[2].index})
-        window.our_bilinks = bilinks;
 
     //create nodes (<circle>, <text>, <circle>)
     var node = group.selectAll(".node")
@@ -121,6 +119,7 @@ $(document).ready(function(){
     // Highlight adjacent edges on node hover
 
     node.on('mouseover.links', function(d) {
+      console.log(d);
       highlight_links(d.id);
     })
       .on('mouseout.links', function(d) {
@@ -148,24 +147,3 @@ $(document).ready(function(){
     adjacent_links.attr("class", "link");
   }
 
-
-
-// Markers
-// =======
-/*
-   svg.append("defs").append("marker")
-   .attr("id", "end_marker")
-   .attr("viewBox", "0 -5 10 10")
-   .attr("refX", 25)
-   .attr("refY", -1)
-   .attr("markerWidth", 3)
-   .attr("markerHeight", 3)
-   .attr("orient", "auto")
-   .append("path")
-   .attr("d", "M0,-5L10,0L0,5");
-
-//marker.append("circle")
-// .attr("cx", 6)
-//.attr("cy", 6)
-//.attr("r", 5);
-*/
