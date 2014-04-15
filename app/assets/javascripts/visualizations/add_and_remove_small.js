@@ -45,13 +45,20 @@ $(document).ready(function(){
             // Look through all of the edges
             // if it's there, break
             // if not, remove it
+            
+            var flag = 0;
             for (var i=0; i < links.length; i++) {
                 if(links[i].source.name == kanji || links[i].target.name == kanji){
+                    flag = 1
                     break;
                 }
             }
             // If it's not a part of any other kanji, remove it.
-            nodes.splice(findNodeIndex(kanji), 1);
+            if (flag == 0) { 
+                console.log("Index is: " + findNodeIndexByName(kanji))
+                // Raise an exception if the node's index is undefined!!
+                nodes.splice(findNodeIndexByName(kanji), 1);
+            }
             update();
         };
 
@@ -125,7 +132,7 @@ $(document).ready(function(){
             };
         };
 
-        this.findNodeIndexByName = function(name) {
+        var findNodeIndexByName = function(name) {
             for (var i=0;i<nodes.length;i++) {
                 if (nodes[i].name==name){
                     return i;
@@ -182,7 +189,6 @@ $(document).ready(function(){
             var node = vis.selectAll("g.node")
                 .data(nodes, function(d) {return d.id;});
 
-            debugger;
             // handle nodes that don't exist yet
             var nodeEnter = node.enter().append("g")
                 .attr("class", "node")
@@ -196,7 +202,7 @@ $(document).ready(function(){
                   .style("color", "#4b4b4b")
                   .style('text-anchor', 'middle')
                   .text(function(d) { 
-                    return d.id; });
+                    return d.name; });
             var circle = nodeEnter.append("circle")
                   .attr("id", function(d) {return d.index})
                   .attr("r", 12)
@@ -272,11 +278,12 @@ $(document).ready(function(){
         var kanji2 = $(this).val()[1];
 
         //graph.removeLink(id2, id1);
-        graph.removeLink(kanji1, kanji2);
+        graph.removeLinkByKanji(kanji1, kanji2);
         console.log('removed link');
         console.log('kanji 1 is ' + kanji1 + 'and is it linked?' + graph.linked(kanji1));
         if (!graph.linked(kanji1)) {
           graph.removeNodeByKanji(kanji1);
+
           // removeNodeByKanji on its own works fine, so it must be an issue with the updating at the end of this funciton.
         }
         // putting a debugger here yields interesting results
