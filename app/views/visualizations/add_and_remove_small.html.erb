@@ -1,2 +1,6 @@
 <div id="svgdiv"></div>
-<input type="checkbox" name="name" class="name_checkbox" value="田中" checked>田中</input>
+
+<% @surnames.each do |surname| %>
+  <input type="checkbox" name="name" class="name_checkbox" value="<%= surname.name %>" checked><%= surname.name %></input>
+
+<% end %>

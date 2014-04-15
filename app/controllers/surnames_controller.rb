@@ -16,6 +16,8 @@ class SurnamesController < ApplicationController
     render json: @large_graph_data
   end
 
+
+
   # GET /surnames
   # GET /surnames.json
   def index
