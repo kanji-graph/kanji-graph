@@ -40,13 +40,13 @@ circle {
 } 
 
 #directed_graph_small, #directed_graph_dynamic {
-  border: solid 2px;
+  border: solid 2px #5d5d5d;
   padding: 0px;
   height: 509px;
 }
 
 #directed_graph_large {
-  border: solid 2px;
+  border: solid 2px #5d5d5d;
   height: 509px;
   overflow: scroll;
   background-image: image-url("japan_flag.png");
