@@ -26,7 +26,6 @@ $(document).ready(function(){
     .style("fill", "rgba(225, 0, 0, .2)")
     .attr("transform", "translate(388, 250)");
 
-
   // AJAX request for JSON
   d3.json("surnames/directed_graph_small", function(error, json) {
     if (error) return console.warn(error);
