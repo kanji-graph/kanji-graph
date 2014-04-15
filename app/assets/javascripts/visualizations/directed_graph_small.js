@@ -127,8 +127,6 @@ $(document).ready(function(){
       });
       
   }); // End AJAX Request
-
-
     
 });
 

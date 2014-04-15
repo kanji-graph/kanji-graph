@@ -99,5 +99,4 @@ $(document).ready(function(){
       un_highlight_links(d.id);
     });
   });
-
 });
