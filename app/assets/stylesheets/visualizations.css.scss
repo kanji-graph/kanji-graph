@@ -39,8 +39,9 @@ circle {
   stroke: #5d5d5d;
 } 
 
-#directed_graph_small {
+#directed_graph_small, #directed_graph_dynamic {
   border: solid 2px;
+  padding: 0px;
 }
 
 #directed_graph_large {
