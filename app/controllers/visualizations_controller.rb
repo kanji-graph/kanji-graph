@@ -6,6 +6,7 @@ class VisualizationsController < ApplicationController
   end
 
   def add_and_remove_small
+    @surnames = Surname.all.limit(10)
   end
 
   def directed_graph_small

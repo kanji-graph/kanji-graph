@@ -1,6 +1,7 @@
 $(document).ready(function(){
 
     var graph;
+    var original_json;
 
     function myGraph(vis_div) {
 
@@ -13,8 +14,8 @@ $(document).ready(function(){
         }
 
         // Add and remove elements on the graph object
-        this.addNode = function (name) {
-            nodes.push({"id":name, "name": name});
+        this.addNode = function (id, name) {
+            nodes.push({"id": id, "name": name});
             update();
         };
 
@@ -26,6 +27,7 @@ $(document).ready(function(){
                 if ((links[i]['source'] == n)||(links[i]['target'] == n))
                 {
                     //remove link
+                    // 9:35 am on tuesday: we're never getting to this point!!!
                     links.splice(i,1);
                 }
                 else i++;
@@ -34,6 +36,48 @@ $(document).ready(function(){
             nodes.splice(findNodeIndex(id),1);
             update();
         };
+
+        // This correctly removes the node with id "kanji" from the list of node objects.
+        // It does not redraw the graph (duh).
+        this.removeNodeByKanji = function (kanji) {
+            // Look through all of the edges
+            // if it's there, break
+            // if not, remove it
+            
+            var flag = 0;
+            for (var i=0; i < links.length; i++) {
+                if(links[i].source.name == kanji || links[i].target.name == kanji){
+                    flag = 1
+                    break;
+                }
+            }
+            // If it's not a part of any other kanji, remove it.
+            if (flag == 0) { 
+                // Raise an exception if the node's index is undefined!!
+                if (findNodeIndexByName(kanji) != undefined) {
+                    nodes.splice(findNodeIndexByName(kanji), 1);
+                }
+            }
+            update();
+        };
+
+        this.nodeExists = function(kanji) {
+            var flag = 0;
+            for (var i=0; i < links.length; i++) {
+                if(links[i].source.name == kanji || links[i].target.name == kanji){
+                    flag = 1
+                    break;
+                }
+            }
+            // If it's not a part of any other kanji, remove it.
+            if (flag == 0) {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+
 
         this.removeLink = function (source,target){
             for(var i=0;i<links.length;i++)
@@ -44,6 +88,24 @@ $(document).ready(function(){
                     break;
                 }
                 if(links[i].source.id == target && links[i].target.id == source)
+                {
+                    links.splice(i,1);
+                    break;
+                }
+            }
+            //redraw
+            update();
+        };
+
+        this.removeLinkByKanji = function (sourceKanji,targetKanji){
+            for(var i=0;i<links.length;i++)
+            {
+                if(links[i].source.name == sourceKanji && links[i].target.name == targetKanji)
+                {
+                    links.splice(i,1);
+                    break;
+                }
+                if(links[i].source.name == targetKanji && links[i].target.name == sourceKanji)
                 {
                     links.splice(i,1);
                     break;
@@ -66,6 +128,7 @@ $(document).ready(function(){
 
         this.addLink = function (source_id, target_id, value) {
             //links are objects
+            // Find the node whose id is the source id and the node whose id is the target id.
             links.push({"source":findNode(source_id),"target":findNode(target_id),"value":value});
             update();
         };
@@ -85,10 +148,18 @@ $(document).ready(function(){
             };
         };
 
-        this.findNodeIndexByName = function(name) {
+        var findNodeIndexByName = function(name) {
             for (var i=0;i<nodes.length;i++) {
                 if (nodes[i].name==name){
                     return i;
+                }
+            };
+        }
+
+        this.findOriginalJsonNodeIdByName = function(name) {
+            for (var i=0;i<original_json.nodes.length;i++) {
+                if (original_json.nodes[i].name==name){
+                    return original_json.nodes[i].id;
                 }
             };
         }
@@ -136,8 +207,11 @@ $(document).ready(function(){
             });
             link.exit().remove();
 
+            // var node = vis.selectAll("g.node")
+            //     .data(nodes);
+
             var node = vis.selectAll("g.node")
-                .data(nodes);
+                .data(nodes, function(d) {return d.id;});
 
             // handle nodes that don't exist yet
             var nodeEnter = node.enter().append("g")
@@ -202,25 +276,93 @@ $(document).ready(function(){
       d3.json("surnames/directed_graph_small", function(error, json) {
         if (error) return console.warn(error);
 
+        original_json = json;
+
         json.nodes.forEach(function(node){
-          graph.addNode(node.name);
+          graph.addNode(node.id, node.name);
+          
         });
 
         json.links.forEach(function(link){
           // source and target actually symbols
-          graph.addLink(graph.readNodes()[link["source"]].name, graph.readNodes()[link["target"]].name, '20');
+          // graph.addLink(graph.readNodes()[link["source"]].name, graph.readNodes()[link["target"]].name, '20');
+          // Add a link between the source and target ids 
+          //(which are set for a particular kanji--they're not based on position inside any array!)
+          graph.addLink(link.source, link.target, '20')
         });
       });
     }
     drawGraph();
 
-    $('.name_checkbox').on("change", function(){
-      if ($(this).prop('checked')==false){ 
-        //var node1 = graph.findNode($(this).val()[0]);
-        //var node2 = graph.findNode($(this).val()[1]);
-        first_kanji = $(this).val()[0];
-        alert(first_kanji); 
-        graph.removeNode(first_kanji);
-      }
+    // $('.name_checkbox').on("change", function(){
+    //   if ($(this).prop('checked')==false){ 
+    //     //var id1 = graph.findNodeIndexByName($(this).val()[0]);
+    //     //var id2 = graph.findNodeIndexByName($(this).val()[1]);
+
+    //     var kanji1 = $(this).val()[0];
+    //     var kanji2 = $(this).val()[1];
+
+    //     //graph.removeLink(id2, id1);
+    //     graph.removeLinkByKanji(kanji1, kanji2);
+    //     console.log('removed link');
+    //     console.log('kanji 1 is ' + kanji1 + ' and is it linked?' + graph.linked(kanji1));
+    //     if (!graph.linked(kanji1)) {
+    //       graph.removeNodeByKanji(kanji1);
+
+    //       // removeNodeByKanji on its own works fine, so it must be an issue with the updating at the end of this funciton.
+    //     }
+    //     // putting a debugger here yields interesting results
+    //     if (!graph.linked(kanji2)) {
+    //       graph.removeNodeByKanji(kanji2);
+    //     }
+    //   }
+    // });
+
+
+    $('.name_checkbox').click(function(){
+        if ($(this).is(':checked')){
+
+            var kanji1 = $(this).val()[0];
+            var kanji2 = $(this).val()[1];
+
+            console.log(original_json.nodes);
+
+            // find id for node in json.nodes that has this kanji as its name
+            var kanji1_id = graph.findOriginalJsonNodeIdByName(kanji1);
+            var kanji2_id = graph.findOriginalJsonNodeIdByName(kanji2);
+
+            // create nodes for kanji1 and kanji2 if they don't exist
+            // Kanji are stored in the Character table of the database
+            if (!graph.nodeExists(kanji1)) {
+                graph.addNode(kanji1_id, kanji1);
+            }
+            if (!graph.nodeExists(kanji2)) {
+                graph.addNode(kanji2_id, kanji2);
+            }
+
+            console.log('checked!');
+
+            // add edge between them
+            graph.addLink(kanji1_id, kanji2_id, '20');
+
+            update();
+
+        }
+
+        else {
+            var kanji1 = $(this).val()[0];
+            var kanji2 = $(this).val()[1];
+
+            graph.removeLinkByKanji(kanji1, kanji2);
+            console.log('removed link');
+            console.log('kanji 1 is ' + kanji1 + ' and is it linked?' + graph.linked(kanji1));
+            if (!graph.linked(kanji1)) {
+              graph.removeNodeByKanji(kanji1);
+            }
+            if (!graph.linked(kanji2)) {
+              graph.removeNodeByKanji(kanji2);
+            }
+        }
     });
+
 });
