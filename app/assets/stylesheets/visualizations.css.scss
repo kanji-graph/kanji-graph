@@ -61,7 +61,7 @@ circle {
   margin:2px;
   background-color:#EFEFEF;
   border-radius:4px;
-  border:1px solid #D0D0D0;
+//  border:1px solid #D0D0D0;
   overflow:auto;
   float:left;
   font-weight: normal;
@@ -87,7 +87,7 @@ circle {
 }
 
 .ck-button input:checked + span {
-    background-color:#a11;
+    background-color:rgba(170, 17, 17, 0.7);
     color:#efefef;
     font-size: 16px;
     font-weight: normal;
