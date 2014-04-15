@@ -31,7 +31,7 @@ class Surname < ActiveRecord::Base
   end
 
   def self.small_graph_names
-    self.limit(10).pluck(:name)
+    self.limit(2).pluck(:name)
   end
 
   def self.small_graph_nodes

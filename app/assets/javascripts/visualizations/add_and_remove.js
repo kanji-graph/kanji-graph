@@ -144,11 +144,13 @@ var update = function () {
     .start();
 };
 
+*/
 
 // Make it all go
 update();
 }
 
+/*
 function drawGraph()
 {
   graph = new myGraph("#svgdiv");
