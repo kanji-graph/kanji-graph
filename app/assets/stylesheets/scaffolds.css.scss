@@ -1,15 +1,22 @@
+@import url(http://fonts.googleapis.com/css?family=Quicksand|Josefin+Sans:400,700);
+
 body {
   background-color: #fff;
   color: #333;
-  font-family: verdana, arial, helvetica, sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-size: 13px;
   line-height: 18px;
 }
 
 p, ol, ul, td {
-  font-family: verdana, arial, helvetica, sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-size: 13px;
   line-height: 18px;
+  font-weight: 700;
+}
+
+h4 {
+  font-family: 'Quicksand', sans-serif;
 }
 
 pre {
