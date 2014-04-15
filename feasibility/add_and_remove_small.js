@@ -1,6 +1,5 @@
 $(document).ready(function(){
 
-
     var graph;
 
     function myGraph(vis_div) {
