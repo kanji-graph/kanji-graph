@@ -5,6 +5,9 @@ class VisualizationsController < ApplicationController
   def add_and_remove
   end
 
+  def about
+  end
+
   def add_and_remove_small
     @surnames = Surname.all.limit(10)
   end

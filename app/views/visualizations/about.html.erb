@@ -1,0 +1,31 @@
+<div class="well">
+  <h1>図 Hakaru</h1>
+
+<fieldset>
+  <legend>Background</legend>
+  <p><em>Kanji</em> are a subset of pictorgraphic Chinese characters that are used in the modern Japanese writing system. Each kanji represents a concept, verb or noun.</p>
+  <legend>Objectives</legend>
+  <ul>
+    <li>Learn d3.js</li>
+    <li>Visualize how Japanese characters are related.</li> 
+  </ul>
+  <legend>Constraints</legend>
+  <p>There are over 50,000 characters in the Japanese language. We decided to limited our dataset to the top 100 most common Japanese surnames in order to:</p>
+  <ul style="list-style:none;">
+    <li>a) ensure characters are highly interconnected</li>
+    <li>b) ensure consistent word lengths (most Japanese names consist of two characters)</li>
+  </ul>
+  <legend>Step 1) Feasability</legend>
+  <p>Started with a simple histogram displaying character occurance.</p>
+  <legend>Iteration 2) Small Force Graph</legend>
+  <p>Created our first force graph with first 10 characters.</p>
+  <p></p>
+  <p>We store our data as activeRecord objects and access it in the JS layer through AJAX.</p>
+  <code>
+    def directed_graph_small </br>
+    @small_graph_data = Surname.small_graph_data </br>
+    render json: @small_graph_data<br>
+    end</br>
+</code>
+</fieldset>
+</div>

@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get 'add_and_remove_small' => 'visualizations#add_and_remove_small', 
     :as => "add_and_remove_small"
   get 'miserables' => 'visualizations#miserables'
+  get 'about' => 'visualizations#about', :as => "about"
 
   resources :surnames
 
