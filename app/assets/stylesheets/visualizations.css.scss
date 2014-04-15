@@ -52,3 +52,41 @@ circle {
 #statistics {
   height: 509px;
 }
+
+// checkbox css
+.ck-button {
+  margin:2px;
+  background-color:#EFEFEF;
+  border-radius:4px;
+  border:1px solid #D0D0D0;
+  overflow:auto;
+  float:left;
+  font-weight: normal;
+}
+
+.ck-button label {
+  float:left;
+  width:4.0em;
+  margin: 0;
+  font-weight: normal;
+}
+
+.ck-button label span {
+    text-align:center;
+    padding:3px 0px;
+    display:block;
+    height: 100%;
+}
+
+.ck-button label input {
+    position:absolute;
+    top:-20px;
+}
+
+.ck-button input:checked + span {
+    background-color:#a11;
+    color:#efefef;
+    font-size: 16px;
+    font-weight: normal;
+}
+
