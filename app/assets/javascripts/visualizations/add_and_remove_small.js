@@ -174,8 +174,8 @@ $(document).ready(function(){
         }
 
         // set up the D3 visualisation in the specified element
-        var w = 500,
-            h = 500;
+        var w = 750,
+            h = 509;
         var vis = d3.select(vis_div)
             .append("svg:svg")
             .attr("width", w)
@@ -186,8 +186,16 @@ $(document).ready(function(){
             .attr("perserveAspectRatio","xMinYMid")
             .append('svg:g');
 
+        
+        vis.append("circle")
+          .attr("r", "100")
+          .style("fill", "rgba(225, 0, 0, .2)")
+          .attr("transform", "translate(388, 250)");
+
         var force = d3.layout.force();
-        force.charge(-120);
+        force
+          .charge(-120)
+          .linkDistance(100);
 
         var nodes = force.nodes(),
             links = force.links();
@@ -258,7 +266,7 @@ $(document).ready(function(){
         update();
     }
 
-    var graph = new myGraph("#svgdiv");
+    var graph = new myGraph("#directed_graph_dynamic");
     function drawGraph()
     {
       //graph = new myGraph("#svgdiv");

@@ -39,14 +39,17 @@ circle {
   stroke: #5d5d5d;
 } 
 
-#directed_graph_small {
+#directed_graph_small, #directed_graph_dynamic {
   border: solid 2px;
+  padding: 0px;
+  height: 509px;
 }
 
 #directed_graph_large {
   border: solid 2px;
   height: 509px;
   overflow: scroll;
+  background-image: image-url("japan_flag.png");
 }
 
 #statistics {
@@ -89,4 +92,3 @@ circle {
     font-size: 16px;
     font-weight: normal;
 }
-
