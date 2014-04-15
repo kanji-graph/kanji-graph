@@ -1,4 +1,18 @@
-<div id="svgdiv"></div>
+
+<div class="row">
+  <div class="col-md-8" id="svgdiv">
+  </div>
+  <div class="col-md-4 well" id="statistics">
+    <h2>Statistics</h2>
+    <ul class="list-unstyled">
+      <li><h4>Nodes: <%= @nodes %></h4></li>
+      <li><h4>Edges: <%= @edges %></h4></li>
+      <li><h4>Components: <%= @components %></h4></li>
+    </ul>
+    <br>
+    <br>
+  </div>
+</div>
 
 <% @surnames.each do |surname| %>
   <div class='ck-button'>
