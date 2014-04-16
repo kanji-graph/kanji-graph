@@ -166,6 +166,35 @@ $(document).ready(function(){
             update();
         };
 
+        this.removeKanjiAndAdjacentEdges = function(kanji) {
+          if (findNodeIndexByName(kanji) != undefined) {
+            nodes.splice(findNodeIndexByName(kanji), 1);
+
+            original_json.links.forEach(function(link){
+              console.log("Kanji is: " + kanji + " Source is: " + findNodeNameById(link.source) + " Target is: " + findNodeNameById(link.target))
+              if (findNodeNameById(link.source) == kanji || findNodeNameById(link.target) == kanji) {
+                graph.removeLink(link.source, link.target)
+              }
+            })
+          }
+          update();
+        }
+
+        this.addKanjiAndAdjacentEdges = function(kanji) {
+          var kanji_id = graph.findOriginalJsonNodeIdByName(kanji);
+          graph.addNode(kanji_id, kanji);
+
+          original_json.links.forEach(function(link){
+            console.log("Kanji is: " + kanji + " Source is: " + findNodeNameById(link.source) + " Target is: " + findNodeNameById(link.target))
+            if (findNodeNameById(link.source) == kanji || findNodeNameById(link.target) == kanji) {
+              graph.addLink(link.source, link.target)
+            }
+          })
+
+
+          update();
+        }
+
         this.nodeExists = function(kanji) {
             var flag = 0;
             for (var i=0; i < links.length; i++) {
@@ -257,6 +286,14 @@ $(document).ready(function(){
             for (var i=0;i<nodes.length;i++) {
                 if (nodes[i].name==name){
                     return i;
+                }
+            };
+        }
+
+        var findNodeNameById = function(id) {
+          for (var i=0;i< original_json.nodes.length;i++) {
+                if (original_json.nodes[i].id==id){
+                    return original_json.nodes[i].name;
                 }
             };
         }
@@ -399,9 +436,7 @@ $(document).ready(function(){
 
 
 
-
-
-
+    // Add or remove names
     $('.name_checkbox').click(function(){
         if ($(this).is(':checked')){
 
@@ -443,6 +478,64 @@ $(document).ready(function(){
             if (!graph.linked(kanji2)) {
               graph.removeNodeByKanji(kanji2);
             }
+
+            // Update statistics
+            // console.log(graph.numNodes(graph.readNodes()));
+            // console.log(graph.numLinks(graph.readLinks()));
+            // console.log(graph.readLinksArray());
+
+            $('#statistics li:nth-child(1)').html('<h4>Nodes: '+ graph.numNodes(graph.readNodes()) + ' </h4>')
+            $('#statistics li:nth-child(2)').html('<h4>Edges: '+ graph.numNodes(graph.readLinks()) + ' </h4>')
+            $('#statistics li:nth-child(3)').html('<h4>Components: '+ graph.numComponents(graph.readLinksArray()) + ' </h4>')
+
+        }
+    });
+
+  
+    // Add or remove kanji
+    $('.kanji_checkbox').click(function(){
+        if ($(this).is(':checked')){
+
+            var kanji = $(this).val();
+            graph.addKanjiAndAdjacentEdges(kanji);
+
+            // find id for node in json.nodes that has this kanji as its name
+            // var kanji1_id = graph.findOriginalJsonNodeIdByName(kanji1);
+            // var kanji2_id = graph.findOriginalJsonNodeIdByName(kanji2);
+
+            // create nodes for kanji1 and kanji2 if they don't exist
+            // Kanji are stored in the Character table of the database
+            // if (!graph.nodeExists(kanji1)) {
+            //     graph.addNode(kanji1_id, kanji1);
+            // }
+            // if (!graph.nodeExists(kanji2)) {
+            //     graph.addNode(kanji2_id, kanji2);
+            // }
+
+            // add edge between them
+            // graph.addLink(kanji1_id, kanji2_id, '20');
+
+            // Update statistics
+
+            $('#statistics li:nth-child(1)').html('<h4>Nodes: '+ graph.numNodes(graph.readNodes()) + ' </h4>')
+            $('#statistics li:nth-child(2)').html('<h4>Edges: '+ graph.numNodes(graph.readLinks()) + ' </h4>')
+            $('#statistics li:nth-child(3)').html('<h4>Components: '+ graph.numComponents(graph.readLinksArray()) + ' </h4>')
+
+        }
+
+        else {
+            var kanji = $(this).val();
+
+            // Remove the kanji.
+            graph.removeKanjiAndAdjacentEdges(kanji);
+
+            // graph.removeLinkByKanji(kanji1, kanji2);
+            // if (!graph.linked(kanji1)) {
+            //   graph.removeNodeByKanji(kanji1);
+            // }
+            // if (!graph.linked(kanji2)) {
+            //   graph.removeNodeByKanji(kanji2);
+            // }
 
             // Update statistics
             // console.log(graph.numNodes(graph.readNodes()));

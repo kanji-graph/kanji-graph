@@ -4,16 +4,23 @@
   <div class="col-md-4 well stats" id="statistics">
     <h2>STATISTICS</h2>
     <ul class="list-unstyled">
-      <li><h4>Nodes: <%= @nodes %></h4></li>
-      <li><h4>Edges: <%= @edges %></h4></li>
+      <li><h4>Nodes: <%= @nodes.count %></h4></li>
+      <li><h4>Edges: <%= @edges.count %></h4></li>
       <li><h4>Components: <%= @components %></h4></li>
     </ul>
     <br>
     <br>
-    <div>
+    <div id='surnames'>
       <% @surnames.each do |surname| %>
         <div class='ck-button'>
           <label class='ck-button'><input type="checkbox" name="name" class="name_checkbox" value="<%= surname.name %>" checked><span><%= surname.name %></span></label>
+        </div>
+      <% end %>
+    </div>
+    <div id='kanjis'>
+      <% @nodes.each do |node| %>
+        <div class='ck-button'>
+          <label class='ck-button'><input type="checkbox" name="name" class="kanji_checkbox" value="<%= node[:name] %>" checked><span><%= node[:name] %></span></label>
         </div>
       <% end %>
     </div>
