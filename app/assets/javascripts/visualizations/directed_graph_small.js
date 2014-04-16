@@ -32,6 +32,7 @@ $(document).ready(function(){
     // graph.nodes.forTeach(function(node) {
     //   graph.addNode(node);
     // }
+    our_json = json;
     
     var nodes = json.nodes.slice(),
         links = [],
