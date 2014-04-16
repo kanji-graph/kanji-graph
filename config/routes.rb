@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'visualizations#directed_graph_small'
+  root 'visualizations#welcome'
 
   #json requests
   get 'surnames/histogram' => "surnames#histogram", :as => "surnames_histogram"
@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get 'add_and_remove_small' => 'visualizations#add_and_remove_small', 
     :as => "add_and_remove_small"
   get 'about' => 'visualizations#about', :as => "about"
+  get 'welcome' => 'visualizations#welcome', :as => "welcome"
 
   resources :surnames
 

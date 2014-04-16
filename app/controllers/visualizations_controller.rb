@@ -8,6 +8,9 @@ class VisualizationsController < ApplicationController
   def about
   end
 
+  def welcome
+  end
+
   def add_and_remove_small
     @surnames = Surname.all.limit(10)
   end
