@@ -5,7 +5,7 @@
 // histogram css
 .chart div {
   font: 10px sans-serif;
-  background-color: steelblue;
+  background-color:rgba(170, 17, 17, 0.7);
   text-align: left;
   padding: 3px;
   margin: 1px;
@@ -45,11 +45,12 @@ circle {
   height: 509px;
 }
 
-#directed_graph_large {
+#histogram, #directed_graph_large {
   border: solid 2px #5d5d5d;
   height: 509px;
   overflow: scroll;
   background-image: image-url("japan_flag.png");
+  padding: 0px;
 }
 
 #statistics {
