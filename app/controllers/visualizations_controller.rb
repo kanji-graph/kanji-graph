@@ -12,6 +12,10 @@ class VisualizationsController < ApplicationController
     @surnames = Surname.all.limit(10)
   end
 
+  def add_and_remove_large
+    @surnames = Surname.all
+  end
+
   def directed_graph_small
     @nodes = Surname.small_graph_nodes.count
     @edges = 10

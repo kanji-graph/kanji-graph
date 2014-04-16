@@ -4,7 +4,6 @@
   <title>Hakaru</title>
   <%= favicon_link_tag 'hakaru.ico' %>
   <%= stylesheet_link_tag    'application', media: 'all' %>
-  <%= stylesheet_link_tag    "//rawgithub.com/Caged/d3-tip/master/examples/example-styles.css" %>
   <%= javascript_include_tag 'application' %>
   <%= javascript_include_tag "http://d3js.org/d3.v3.min.js" %>
   <%= javascript_include_tag "http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js" %>
@@ -30,18 +29,18 @@
       <ul class="nav navbar-nav">
         <li><%= nav_link "HISTOGRAM", histogram_path %></li>
         <li><%= nav_link "SMALL", directed_graph_small_path %></li>
-        <li><%= nav_link "LARGE", directed_graph_large_path %></li>
         <li><%= nav_link "DYNAMIC", add_and_remove_small_path %></li>
-        <li><%= nav_link "ABOUT", about_path %></li>
+        <li><%= nav_link "LARGE", directed_graph_large_path %></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
+        <li><%= nav_link "ABOUT", about_path %></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
 
 <div class="container">
-<%= yield %>
+  <%= yield %>
 </div>
 
 </body>

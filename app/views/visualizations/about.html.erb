@@ -6,35 +6,32 @@
   <p><em>Kanji</em> are a subset of pictorgraphic Chinese characters that are used in the modern Japanese writing system. Each kanji represents a concept, verb or noun.</p>
   <legend>Objectives</legend>
   <ul>
-    <li>Learn d3.js</li>
+    <li>Experiment with d3.js</li>
     <li>Visualize how Japanese characters are related.</li> 
   </ul>
-  <legend>Constraints</legend>
-  <p>There are over 50,000 characters in the Japanese language. We decided to limited our dataset to the top 100 most common Japanese surnames in order to:</p>
-  <ul style="list-style:none;">
-    <li>a) ensure characters are highly interconnected</li>
-    <li>b) ensure consistent word lengths (most Japanese names consist of two characters)</li>
-  </ul>
-  <legend>Step 1) Feasability</legend>
+  <legend>Dataset</legend>
+  <p>There are over 50,000 characters in the Japanese language. We limited our exploration to characters that make up the 100 most common Japanese names.</p>
+  <h1>Iterations</h1>
+  <legend>Histogram</legend>
   <p>Started with a simple histogram displaying character occurance.</p>
-  <legend>Iteration 2) Small Force Graph</legend>
-  <p>Created our first force graph with first 10 characters.</p>
-  <p></p>
-  <p>We store our data as activeRecord objects and access it in the JS layer through AJAX.</p>
-  <code>
-    def directed_graph_small </br>
-    @small_graph_data = Surname.small_graph_data </br>
-    render json: @small_graph_data<br>
-    end</br>
-</code>
+  <p>Hard-coded data.</p>
+  <legend>Small Force Graph</legend>
+  <p>Small force graph linking data from 10 most common names.</p>
+  <p>Access database backend through JSON. ?code?</p>
+  <legend>Large Force Graph</legend>
+  <p>Link data from 100 most common names.</p>
+  <p>Implement <b>breadth first search</b> ??code?? for graph statistics.</p>
+  <h1>Features</h1>
+  <legend>Breadth-First Search</legend>
+  <p>To calculate number of graph components on backend</p>
+  <legend>Tooltip</legend>
+  <p>Add tooltip on node hover.</p>
+  <legend>Scraper</legend>
+  <p>Write small scraper for Kanji meanings.</p>
+  <legend>Highlighting</legend>
+  <p>Styling to highlight node's connectivity on hover.</p>
+  <legend>Dynamic</legend>
+  <p>Adjust dataset through buttons.</p>
+  <h1>Conclusions</h1>
 
--histogram
--force graph
--tooltip
--scraper
--highlighting
--add_remove
--conclusions: rice field (agrarian society)
-
-</fieldset>
 </div>
