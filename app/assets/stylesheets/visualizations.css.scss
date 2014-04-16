@@ -106,6 +106,35 @@ circle {
   border-radius: 0;
 }
 
-.d3-tip {
-  color: rgba(0, 0, 0, 0);
+#control {
+}
+
+.bottom-section {
+  position:absolute;
+  bottom: 10px;
+}
+
+.strong {
+  font-weight: bold;
+}
+
+a.navigation-right {
+  right: -100px;
+}
+
+a.navigation-left {
+  left: -870px;
+}
+
+a.navigation-right, a.navigation-left {
+  font-size: 10em;
+  position: absolute;
+  top: 150px;
+  color: #E7E7E7;
+}
+
+a.navigation-right:hover, a.navigation-left:hover {
+  text-decoration: none;
+  background-color: white;
+  color: #F1CECD;
 }

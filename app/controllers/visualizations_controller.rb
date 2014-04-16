@@ -15,6 +15,10 @@ class VisualizationsController < ApplicationController
     @components = Surname.small_graph_components.count
   end
 
+  def add_and_remove_large
+    @surnames = Surname.all
+  end
+
   def directed_graph_small
     @nodes = Surname.small_graph_nodes.count
     @edges = Surname.small_graph_links.count

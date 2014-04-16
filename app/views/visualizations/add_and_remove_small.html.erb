@@ -1,8 +1,9 @@
+<h1>Iteration 3</h1>
 <div class="row">
   <div class="col-md-8" id="directed_graph_dynamic">
   </div>
   <div class="col-md-4 well stats" id="statistics">
-    <h2>STATISTICS</h2>
+    <h2>Dynamic Graph</h2>
     <ul class="list-unstyled">
       <li><h4>Nodes: <%= @nodes.count %></h4></li>
       <li><h4>Edges: <%= @edges.count %></h4></li>
@@ -24,6 +25,8 @@
         </div>
       <% end %>
     </div>
+    <%= link_to ">", directed_graph_large_path, :class => "navigation-right" %>
+    <%= link_to "<", directed_graph_small_path, :class => "navigation-left" %>
   </div>
 </div>
 
