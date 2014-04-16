@@ -13,6 +13,9 @@ class VisualizationsController < ApplicationController
 
   def add_and_remove_small
     @surnames = Surname.all.limit(10)
+    @nodes = Surname.small_graph_nodes
+    @edges = Surname.small_graph_links
+    @components = Surname.small_graph_components.count
   end
 
   def add_and_remove_large
@@ -21,7 +24,7 @@ class VisualizationsController < ApplicationController
 
   def directed_graph_small
     @nodes = Surname.small_graph_nodes.count
-    @edges = 10
+    @edges = Surname.small_graph_links.count
     @components = Surname.small_graph_components.count
     @surname = Surname.new
     @surnames = Surname.all
