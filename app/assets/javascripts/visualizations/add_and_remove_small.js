@@ -18,7 +18,7 @@ $(document).ready(function(){
         // get an array of all the nodes
         this.readNodesArray = function() {
             var nodes_array = [];
-            var nodes_copy = readNodes;
+            var nodes_copy = this.readNodes();
             for (i = 0; i < nodes_copy.length; i++) {
                 nodes_array.push(nodes_copy[i].id);
             }
@@ -87,14 +87,15 @@ $(document).ready(function(){
         }
 
 
-        this.numComponents = function (edges) {
-            
+        this.numComponents = function (edges, nodes) {
+            var edges_copy = edges.slice();
+            console.log("edges: " + edges + "edges copy: " + edges_copy)
             var components = [];
 
             while (edges.length > 0) {
                 var component = edges.shift();
                 while (edges.filter(function (edge) {return hasOverlap(edge, component);}).length > 0) {
-                  console.log('Current amount of overlap: ' + edges.filter(function (edge) {return hasOverlap(edge, component);}).length + ' edges');
+                  //console.log('Current amount of overlap: ' + edges.filter(function (edge) {return hasOverlap(edge, component);}).length + ' edges');
                   // Iterate through all of the edges.
                   for (i=0; i < edges.length; i++){
                     // If the edge overlaps with the current component
@@ -113,7 +114,17 @@ $(document).ready(function(){
                 }  
                 components.push(component);
             }
-            return components.length;
+
+            // Take into account orphan nodes
+            // which nodes are not in unique(flatten(edges)); ?
+            var num_orphans = 0;
+            nodes.forEach(function (node) {
+              if (unique(flatten(edges_copy)).indexOf(node) == -1) {
+                console.log(edges_copy)
+                num_orphans++;
+              }
+            });
+            return components.length + num_orphans;
         }
 
 
@@ -171,7 +182,7 @@ $(document).ready(function(){
             nodes.splice(findNodeIndexByName(kanji), 1);
 
             original_json.links.forEach(function(link){
-              console.log("Kanji is: " + kanji + " Source is: " + findNodeNameById(link.source) + " Target is: " + findNodeNameById(link.target))
+              //console.log("Kanji is: " + kanji + " Source is: " + findNodeNameById(link.source) + " Target is: " + findNodeNameById(link.target))
               if (findNodeNameById(link.source) == kanji || findNodeNameById(link.target) == kanji) {
                 graph.removeLink(link.source, link.target)
               }
@@ -185,7 +196,7 @@ $(document).ready(function(){
           graph.addNode(kanji_id, kanji);
 
           original_json.links.forEach(function(link){
-            console.log("Kanji is: " + kanji + " Source is: " + findNodeNameById(link.source) + " Target is: " + findNodeNameById(link.target))
+            //console.log("Kanji is: " + kanji + " Source is: " + findNodeNameById(link.source) + " Target is: " + findNodeNameById(link.target))
             if (findNodeNameById(link.source) == kanji || findNodeNameById(link.target) == kanji) {
               graph.addLink(link.source, link.target)
             }
@@ -463,7 +474,7 @@ $(document).ready(function(){
 
             $('#statistics li:nth-child(1)').html('<h4>Nodes: '+ graph.numNodes(graph.readNodes()) + ' </h4>')
             $('#statistics li:nth-child(2)').html('<h4>Edges: '+ graph.numNodes(graph.readLinks()) + ' </h4>')
-            $('#statistics li:nth-child(3)').html('<h4>Components: '+ graph.numComponents(graph.readLinksArray()) + ' </h4>')
+            $('#statistics li:nth-child(3)').html('<h4>Components: '+ graph.numComponents(graph.readLinksArray(), graph.readNodesArray()) + ' </h4>')
 
         }
 
@@ -486,7 +497,7 @@ $(document).ready(function(){
 
             $('#statistics li:nth-child(1)').html('<h4>Nodes: '+ graph.numNodes(graph.readNodes()) + ' </h4>')
             $('#statistics li:nth-child(2)').html('<h4>Edges: '+ graph.numNodes(graph.readLinks()) + ' </h4>')
-            $('#statistics li:nth-child(3)').html('<h4>Components: '+ graph.numComponents(graph.readLinksArray()) + ' </h4>')
+            $('#statistics li:nth-child(3)').html('<h4>Components: '+ graph.numComponents(graph.readLinksArray(), graph.readNodesArray()) + ' </h4>')
 
         }
     });
@@ -499,52 +510,22 @@ $(document).ready(function(){
             var kanji = $(this).val();
             graph.addKanjiAndAdjacentEdges(kanji);
 
-            // find id for node in json.nodes that has this kanji as its name
-            // var kanji1_id = graph.findOriginalJsonNodeIdByName(kanji1);
-            // var kanji2_id = graph.findOriginalJsonNodeIdByName(kanji2);
-
-            // create nodes for kanji1 and kanji2 if they don't exist
-            // Kanji are stored in the Character table of the database
-            // if (!graph.nodeExists(kanji1)) {
-            //     graph.addNode(kanji1_id, kanji1);
-            // }
-            // if (!graph.nodeExists(kanji2)) {
-            //     graph.addNode(kanji2_id, kanji2);
-            // }
-
-            // add edge between them
-            // graph.addLink(kanji1_id, kanji2_id, '20');
-
             // Update statistics
 
             $('#statistics li:nth-child(1)').html('<h4>Nodes: '+ graph.numNodes(graph.readNodes()) + ' </h4>')
             $('#statistics li:nth-child(2)').html('<h4>Edges: '+ graph.numNodes(graph.readLinks()) + ' </h4>')
-            $('#statistics li:nth-child(3)').html('<h4>Components: '+ graph.numComponents(graph.readLinksArray()) + ' </h4>')
+            $('#statistics li:nth-child(3)').html('<h4>Components: '+ graph.numComponents(graph.readLinksArray(), graph.readNodesArray()) + ' </h4>')
 
         }
 
         else {
             var kanji = $(this).val();
 
-            // Remove the kanji.
             graph.removeKanjiAndAdjacentEdges(kanji);
-
-            // graph.removeLinkByKanji(kanji1, kanji2);
-            // if (!graph.linked(kanji1)) {
-            //   graph.removeNodeByKanji(kanji1);
-            // }
-            // if (!graph.linked(kanji2)) {
-            //   graph.removeNodeByKanji(kanji2);
-            // }
-
-            // Update statistics
-            // console.log(graph.numNodes(graph.readNodes()));
-            // console.log(graph.numLinks(graph.readLinks()));
-            // console.log(graph.readLinksArray());
 
             $('#statistics li:nth-child(1)').html('<h4>Nodes: '+ graph.numNodes(graph.readNodes()) + ' </h4>')
             $('#statistics li:nth-child(2)').html('<h4>Edges: '+ graph.numNodes(graph.readLinks()) + ' </h4>')
-            $('#statistics li:nth-child(3)').html('<h4>Components: '+ graph.numComponents(graph.readLinksArray()) + ' </h4>')
+            $('#statistics li:nth-child(3)').html('<h4>Components: '+ graph.numComponents(graph.readLinksArray(), graph.readNodesArray()) + ' </h4>')
 
         }
     });
