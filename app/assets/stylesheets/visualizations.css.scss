@@ -85,7 +85,7 @@ circle {
 
 .ck-button label input {
     position:absolute;
-    top:-20px;
+    display: none;
 }
 
 .ck-button input:checked + span {
