@@ -1,14 +1,15 @@
 <h1>歓迎 Welcome</h1>
 <div class="row">
   <div class="col-md-4 welcome">
+    <p class="big-characters">漢字</p>
     <div class="caption">
     <fieldset>
       <legend>Background</legend>
-      <p>Our project visualizes how Japanese characters are related.</p>
       <p><em>Kanji</em> are a subset of pictorgraphic Chinese characters that are used in the modern Japanese writing system. Each kanji represents a concept, verb or noun.</p>
     </div>
   </div>
   <div class="col-md-4 welcome" id="welcome">
+    <p class="big-characters">漢字</p>
     <div class="caption">
       <legend>Objectives</legend>
       <ul>
@@ -18,11 +19,14 @@
     </div>
   </div>
   <div class="col-md-4 stats welcome" id="statistics">
+    <p id="infinity">∞</p>
+    <p id="arrow">↓</p>
+    <p id="small-characters">田山中村川口</p>
     <div class="caption">
       <legend>Dataset</legend>
       <p>There are over 50,000 characters in the Japanese language. We limited our exploration to characters that make up the 100 most common Japanese names.</p>
     </fieldset>
-    <%= link_to ">", histogram_path, :class => "navigation-right" %>
     </div>
+    <%= link_to ">", histogram_path, :class => "navigation-right" %>
   </div>
 </div>

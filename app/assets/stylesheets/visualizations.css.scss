@@ -120,7 +120,33 @@ circle {
   top: 300px;
 }
 
-#control {
+.big-characters {
+  font-size: 10em;
+  position: relative;
+  vertical-align: middle;
+  text-align: center;
+  line-height: 300px;
+}
+
+#small-characters {
+  font-size: 3em;
+  text-align: center;
+}
+
+#infinity {
+  font-size: 10em;
+  position: relative;
+  vertical-align: middle;
+  text-align: center;
+  line-height: 200px;
+}
+
+#arrow {
+  font-size: 2em;
+  position: absolute;
+  text-align: center;
+  top: 150px;
+  left: 185px;
 }
 
 .bottom-section {
