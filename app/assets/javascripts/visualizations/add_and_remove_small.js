@@ -478,9 +478,9 @@ $(document).ready(function(){
 
             // Update statistics
 
-            $('#statistics li:nth-child(1)').html('<h4>Nodes: '+ graph.numNodes(graph.readNodes()) + ' </h4>')
-            $('#statistics li:nth-child(2)').html('<h4>Edges: '+ graph.numNodes(graph.readLinks()) + ' </h4>')
-            $('#statistics li:nth-child(3)').html('<h4>Components: '+ graph.numComponents(graph.readLinksArray(), graph.readNodesArray()) + ' </h4>')
+            $('.table td:nth-child(1)').text(graph.numNodes(graph.readNodes()))
+            $('.table td:nth-child(2)').text(graph.numNodes(graph.readLinks()) )
+            $('.table td:nth-child(3)').text(graph.numComponents(graph.readLinksArray(), graph.readNodesArray()))
 
         }
 
@@ -501,9 +501,9 @@ $(document).ready(function(){
             // console.log(graph.numLinks(graph.readLinks()));
             // console.log(graph.readLinksArray());
 
-            $('#statistics li:nth-child(1)').html('<h4>Nodes: '+ graph.numNodes(graph.readNodes()) + ' </h4>')
-            $('#statistics li:nth-child(2)').html('<h4>Edges: '+ graph.numNodes(graph.readLinks()) + ' </h4>')
-            $('#statistics li:nth-child(3)').html('<h4>Components: '+ graph.numComponents(graph.readLinksArray(), graph.readNodesArray()) + ' </h4>')
+            $('.table td:nth-child(1)').text(graph.numNodes(graph.readNodes()))
+            $('.table td:nth-child(2)').text(graph.numNodes(graph.readLinks()) )
+            $('.table td:nth-child(3)').text(graph.numComponents(graph.readLinksArray(), graph.readNodesArray()))
 
         }
     });
@@ -518,9 +518,9 @@ $(document).ready(function(){
 
             // Update statistics
 
-            $('#statistics li:nth-child(1)').html('<h4>Nodes: '+ graph.numNodes(graph.readNodes()) + ' </h4>')
-            $('#statistics li:nth-child(2)').html('<h4>Edges: '+ graph.numNodes(graph.readLinks()) + ' </h4>')
-            $('#statistics li:nth-child(3)').html('<h4>Components: '+ graph.numComponents(graph.readLinksArray(), graph.readNodesArray()) + ' </h4>')
+            $('.table td:nth-child(1)').text(graph.numNodes(graph.readNodes()))
+            $('.table td:nth-child(2)').text(graph.numNodes(graph.readLinks()) )
+            $('.table td:nth-child(3)').text(graph.numComponents(graph.readLinksArray(), graph.readNodesArray()))
 
         }
 
@@ -529,9 +529,9 @@ $(document).ready(function(){
 
             graph.removeKanjiAndAdjacentEdges(kanji);
 
-            $('#statistics li:nth-child(1)').html('<h4>Nodes: '+ graph.numNodes(graph.readNodes()) + ' </h4>')
-            $('#statistics li:nth-child(2)').html('<h4>Edges: '+ graph.numNodes(graph.readLinks()) + ' </h4>')
-            $('#statistics li:nth-child(3)').html('<h4>Components: '+ graph.numComponents(graph.readLinksArray(), graph.readNodesArray()) + ' </h4>')
+            $('.table td:nth-child(1)').text(graph.numNodes(graph.readNodes()))
+            $('.table td:nth-child(2)').text(graph.numNodes(graph.readLinks()) )
+            $('.table td:nth-child(3)').text(graph.numComponents(graph.readLinksArray(), graph.readNodesArray()))
 
         }
     });
