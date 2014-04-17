@@ -89,7 +89,7 @@ $(document).ready(function(){
 
         this.numComponents = function (edges, nodes) {
             var edges_copy = edges.slice();
-            console.log("edges: " + edges + "edges copy: " + edges_copy)
+            //console.log("edges: " + edges + "edges copy: " + edges_copy)
             var components = [];
 
             while (edges.length > 0) {
@@ -196,7 +196,7 @@ $(document).ready(function(){
           graph.addNode(kanji_id, kanji);
 
           original_json.links.forEach(function(link){
-            //console.log("Kanji is: " + kanji + " Source is: " + findNodeNameById(link.source) + " Target is: " + findNodeNameById(link.target))
+            console.log("Kanji is: " + kanji + " Source is: " + findNodeNameById(link.source) + " Target is: " + findNodeNameById(link.target))
             if (findNodeNameById(link.source) == kanji || findNodeNameById(link.target) == kanji) {
               graph.addLink(link.source, link.target)
             }
@@ -274,8 +274,14 @@ $(document).ready(function(){
         this.addLink = function (source_id, target_id, value) {
             //links are objects
             // Find the node whose id is the source id and the node whose id is the target id.
-            links.push({"source":findNode(source_id),"target":findNode(target_id),"value":value});
-            update();
+
+            // Only add the links if the two nodes exist. 
+            // If they don't both exist, for example because one of them has been removed, just don't add the link.
+            if ((findNode(source_id) != undefined) && (findNode(target_id) != undefined)) {
+                links.push({"source":findNode(source_id),"target":findNode(target_id),"value":value});
+                update();
+  
+            }
         };
 
 
