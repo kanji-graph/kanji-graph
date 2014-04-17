@@ -1,29 +1,26 @@
-<div class="well">
-  <h1>図 Hakaru</h1>
-
-<fieldset>
-  <h1>Iterations</h1>
-  <legend>Histogram</legend>
-  <p>Started with a simple histogram displaying character occurance.</p>
-  <p>Hard-coded data.</p>
-  <legend>Small Force Graph</legend>
-  <p>Small force graph linking data from 10 most common names.</p>
-  <p>Access database backend through JSON. ?code?</p>
-  <legend>Large Force Graph</legend>
-  <p>Link data from 100 most common names.</p>
-  <p>Implement <b>breadth first search</b> ??code?? for graph statistics.</p>
-  <h1>Features</h1>
-  <legend>Breadth-First Search</legend>
-  <p>To calculate number of graph components on backend</p>
-  <legend>Tooltip</legend>
-  <p>Add tooltip on node hover.</p>
+<h1> ついて ・ About </h1>
+<div class="row">
+<div class="col-12-md about">
+  <section>
+    <h1>Graph Theory</h1>
+  </section>
+  <section class="gray">
+  <h1>Challenges</h1>
+    <h4>Breadth-First Search</h2>
+    <p>Implemented breadth-first search on backend and frontend</p>
   <legend>Scraper</legend>
   <p>Write small scraper for Kanji meanings.</p>
   <legend>Highlighting</legend>
   <p>Styling to highlight node's connectivity on hover.</p>
   <legend>Dynamic</legend>
   <p>Adjust dataset through buttons.</p>
-  <h1>Conclusions</h1>
-  <h1>Creators</h1>
-
+  </section>
+  <section>
+    <h1>Conclusion (Singular)</h1>
+  </section>
+  <section class="gray">
+    <h1>Creators</h1>
+  </section>
+  <%= link_to "<", directed_graph_large_path, :class => "navigation-left", :id => "about" %>
+</div>
 </div>

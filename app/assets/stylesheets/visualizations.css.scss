@@ -111,6 +111,12 @@ circle {
   padding: 0px;
 }
 
+.about {
+  height: 509px;
+  border: 1px solid;
+  overflow: scroll;
+}
+
 .caption {
   position: absolute;
   top: 300px;
@@ -162,6 +168,11 @@ a.navigation-left {
   left: -870px;
 }
 
+a.navigation-left#about{
+  top: 290px;
+  left: 30px;
+}
+
 a.navigation-right, a.navigation-left {
   font-size: 10em;
   position: absolute;
@@ -189,4 +200,16 @@ p.button-group-label {
 
 label.ck-button:hover {
   cursor:pointer;
+}
+
+section {
+  height: 509px;
+}
+section.gray {
+  background-color:#E7E7E7;
+  padding-top: 0px;
+  h1 {
+    padding-top: 20px;
+    margin-top: 0px;
+  }
 }
