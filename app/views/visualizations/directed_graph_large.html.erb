@@ -1,26 +1,31 @@
-<h1>Iteration 4</h1>
+<h1>四　Iteration 4</h1>
 <div class="row">
   <div class="col-md-8" id="directed_graph_large">
   </div>
   <div class="col-md-4 well stats" id="statistics">
-    <h2>CHARACTER CO-OCCURANCE</h2>
+    <h2><span style="white-space:nowrap">Co-occurance</span> With Translations</h2>
     <ul class="list-unstyled">
-      <li><h4>100 Most Common Japanese Surnames</h4></li>
+      <li><h4></h4></li>
     </ul>
-    </br>
-    </br>
-    <fieldset>
-      <legend>Statistics</legend>
-      <ul class="list-unstyled">
-        <li><h4>Nodes: <%= @nodes %></h4></li>
-        <li><h4>Edges: <%= @edges %></h4></li>
-        <li><h4>Components: <%= @components %></h4></li>
-      </ul>
-    </fieldset>
+    <p>(hover over nodes)</p>
+    <br>
+    <table class="table">
+      <tr>
+        <th>Nodes</th>
+        <th>Edges</th>
+        <th>Components</th>
+      </tr>
+      <tr>
+        <td><%= @nodes %></td>
+        <td><%= @edges %></td>
+        <td><%= @components %></td>
+      </tr>
+    </table>
     <br>
     <br>
     <%= link_to ">", about_path, :class => "navigation-right" %>
     <%= link_to "<", add_and_remove_small_path, :class => "navigation-left" %>
+    <p class="footnote">*dataset: 100 common Japanese surnames</p>
   </div>
 </div>
 <div class="row">

@@ -58,7 +58,7 @@ circle {
 }
 
 #kanjis {
-  margin: 50px 0px;
+  margin: 0px 0px;
 }
 
 #surnames {
@@ -176,4 +176,17 @@ a.navigation-right:hover, a.navigation-left:hover {
 }
 
 #objectives svg {
+}
+
+.footnote {
+  position: absolute;
+  bottom: 5px;
+}
+
+p.button-group-label {
+  margin-bottom: 0px;
+}
+
+label.ck-button:hover {
+  cursor:pointer;
 }

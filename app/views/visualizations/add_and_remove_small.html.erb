@@ -1,16 +1,26 @@
-<h1>Iteration 3</h1>
+<h1>三　Iteration 3</h1>
 <div class="row">
   <div class="col-md-8" id="directed_graph_dynamic">
   </div>
   <div class="col-md-4 well stats" id="statistics">
     <h2>Dynamic Graph</h2>
-    <ul class="list-unstyled">
-      <li><h4>Nodes: <%= @nodes.count %></h4></li>
-      <li><h4>Edges: <%= @edges.count %></h4></li>
-      <li><h4>Components: <%= @components %></h4></li>
-    </ul>
+    <p>(click below)</p>
     <br>
-    <br>
+    <div>
+    <table class="table">
+      <tr>
+        <th>Nodes</th>
+        <th>Edges</th>
+        <th>Components</th>
+      </tr>
+      <tr>
+        <td><%= @nodes.count %></td>
+        <td><%= @edges.count %></td>
+        <td><%= @components %></td>
+      </tr>
+    </table>
+    </div>
+    <p class="button-group-label">Names:</p>
     <div id='surnames'>
       <% @surnames.each do |surname| %>
         <div class='ck-button'>
@@ -18,6 +28,8 @@
         </div>
       <% end %>
     </div>
+    <br>
+    <p class="button-group-label">Characters:</p>
     <div id='kanjis'>
       <% @nodes.each do |node| %>
         <div class='ck-button'>
@@ -27,6 +39,7 @@
     </div>
     <%= link_to ">", directed_graph_large_path, :class => "navigation-right" %>
     <%= link_to "<", directed_graph_small_path, :class => "navigation-left" %>
+    <p class="footnote">*dataset: 10 common Japanese surnames</p>
   </div>
 </div>
 

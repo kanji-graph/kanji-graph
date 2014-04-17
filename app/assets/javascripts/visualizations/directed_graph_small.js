@@ -91,19 +91,6 @@ $(document).ready(function(){
           .style("fill", "rgba(255, 255, 255, 0)")
           .style("stroke", "#4b4b4b");
 
-    // create tooltips
-    //    1) initialize function tip(vis)
-    var tip = d3.tip().attr('class', 'd3-tip').html(function(d) { return d.meaning }).offset([-7,0]);
-
-    //    2) call in context of svg ???
-    d3.select("#directed_graph_small svg").call(tip);
-
-    //    3) bind to node mouseover event
-    node.on('mouseover.tooltip', tip.show)
-      .on('mouseout.tooltip', tip.hide)
-      .on('mousedown.tooltip', tip.hide)
-      .on('mouseup.tooltip', tip.show);
-
     // update nodes on tick event 
     force.on("tick", function() {
       link.attr("d", function(d) {
@@ -116,16 +103,6 @@ $(document).ready(function(){
       });
     });
 
-    // Highlight adjacent edges on node hover
-
-    node.on('mouseover.links', function(d) {
-      console.log(d);
-      highlight_links(d.id);
-    })
-      .on('mouseout.links', function(d) {
-       un_highlight_links(d.id);
-      });
-      
   }); // End AJAX Request
     
 });
