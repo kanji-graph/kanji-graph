@@ -254,3 +254,40 @@ section.gray {
   }
 }
 
+.logos {
+  width: 100%;
+  img {
+    width: 75px;
+    height: 75px;
+    display: block;
+  }
+
+  #ruby {
+    width: 65px;
+    height: 65px;
+    margin-top: 5px;
+  }
+
+  #nokogiri {
+    font-size: 5em;
+    position:relative;
+    p {
+      position: absolute;
+      bottom: -7px;
+    }
+    margin:7px 0px 18px;
+  }
+
+  #jquery {
+    margin: 5px 0px;
+  }
+
+  #javascript {
+  }
+}
+
+.center {
+  width: 30%;
+  margin: 0 auto;
+}
+

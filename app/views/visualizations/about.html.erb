@@ -21,7 +21,6 @@
 <section class="gray">
   <h1 style="text-align:right;padding-right:10px">Technologies Used</h1>
   <div class="col-md-8">
-    <br>
     <h4>We used <b>AJAX</b> to access information from the database in our Javascript layer. <b>D3.js</b> provides a built-in .json() function, which we used to access our own json endpoints.</h4>
     <br>
     <h4>Kanji definitions were dynamically scraped and seeded using <b>Nokogiri</b> and a custom <b>rake</b> task.</h4>
@@ -31,6 +30,15 @@
     <h4>We used <b>jQuery</b> to bind highlight and tooltip effects to each node's hover event.</h4>
     <br>
     <h4>The trusty <b>Rails stack</b> holds it all together.</h4>
+  </div>
+  <div class="col-md-4 logos">
+    <div class="center">
+      <%= image_tag "/images/ruby.svg", :id => "ruby" %>
+      <div id="nokogiri">鋸<p>Nokogiri</p></div>
+      <%= image_tag "/images/javascript.svg", :id => "javascript" %>
+      <%= image_tag "/images/jquery.svg", :id => "jquery" %>
+      <%= image_tag "/images/rails.png" %>
+    </div>
   </div>
 </section>
 <section>
