@@ -1,26 +1,40 @@
 <h1> ついて ・ About </h1>
-<div class="row">
-<div class="col-12-md about">
+<div class="about">
   <section>
-    <h1>Graph Theory</h1>
-  </section>
-  <section class="gray">
-  <h1>Challenges</h1>
-    <h4>Breadth-First Search</h2>
-    <p>Implemented breadth-first search on backend and frontend</p>
-  <legend>Scraper</legend>
-  <p>Write small scraper for Kanji meanings.</p>
-  <legend>Highlighting</legend>
-  <p>Styling to highlight node's connectivity on hover.</p>
-  <legend>Dynamic</legend>
-  <p>Adjust dataset through buttons.</p>
-  </section>
-  <section>
-    <h1>Conclusion (Singular)</h1>
-  </section>
-  <section class="gray">
-    <h1>Creators</h1>
-  </section>
-  <%= link_to "<", directed_graph_large_path, :class => "navigation-left", :id => "about" %>
-</div>
+  <h1 style="padding-left:10px">Concepts From Graph Theory</h1>
+  <div class="row">
+    <div class="col-md-4">
+      picture of component with blank nodes
+    </div>
+    <div class="col-md-8">
+      <br>
+      <h4><b>Components</b> are groups of connected nodes in a graph. Think of them as islandsof interconnected data.</h4>
+      <br>
+      <h4>In our large graph, there are <b>80 characters</b> yet only <b>7 components</b>.  Most of the nodes are linked to one large central component.  This conveys that most common japanese names are related combinations of the same small set of kanji.</h4>
+      <br>
+      <h4>We noticed that <b>田</b> (pronounced "da", meaning "rice field") was by far the most connected datum in the large graph, occuring in 25 names -- a quarter of our sample. This perhaps speaks to Japan's heritage as an aggrarian society.</h4>   
+      <br>
+      <h4>In order to calculate the number of components in a given graph, we implemented <b>breadth-first search</b>.</h4>
+    </div>
+  </div>
+</section>
+<section class="gray">
+  <h1 style="text-align:right;padding-right:10px">Technologies Used</h1>
+  <div class="col-md-8">
+    <br>
+    <h4>We used <b>AJAX</b> to access information from the database in our Javascript layer. <b>D3.js</b> provides a built-in .json() function, which we used to access our own json endpoints.</h4>
+    <br>
+    <h4>Kanji definitions were dynamically scraped and seeded using <b>Nokogiri</b> and a custom <b>rake</b> task.</h4>
+    <br>
+    <h4>Our <b>javascript</b> is mostly procedural.  However, in order to implement the dynamic graph, we explored <b>object-oriented javascript</b>.  Each page load instantiates a Graph object, which maintains the state of the graph as nodes are added and removed.</h4>
+    </br>
+    <h4>We used <b>jQuery</b> to bind highlight and tooltip effects to each node's hover event.</h4>
+    <br>
+    <h4>The trusty <b>Rails stack</b> holds it all together.</h4>
+  </div>
+</section>
+<section>
+  <h1>Creators</h1>
+</section>
+<%= link_to "<", directed_graph_large_path, :class => "navigation-left", :id => "about" %>
 </div>

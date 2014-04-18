@@ -111,11 +111,6 @@ circle {
   padding: 0px;
 }
 
-.about {
-  height: 509px;
-  border: 1px solid;
-  overflow: scroll;
-}
 
 .caption {
   position: absolute;
@@ -206,10 +201,21 @@ section {
   height: 509px;
 }
 section.gray {
-  background-color:#E7E7E7;
+  background-color:#F8F8F8;
   padding-top: 0px;
   h1 {
     padding-top: 20px;
     margin-top: 0px;
+  }
+}
+
+// about
+.about {
+  height: 509px;
+  border: 1px solid;
+  overflow: scroll;
+
+  section div.row {
+    margin: 0px;
   }
 }
