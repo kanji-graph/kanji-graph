@@ -219,3 +219,38 @@ section.gray {
     margin: 0px;
   }
 }
+
+.bio {
+  img {
+    width: 200px;
+    height: 200px;
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+    border-radius:100px;
+  }
+
+  h2, h4, .social {
+    text-align: center;
+  }
+
+  .social { 
+    span {
+      padding-left: 15px;
+    }
+
+    a:hover {
+      background-color: white;
+    }
+
+    a:visited {
+      color: #428bca;
+    }
+
+    a:hover {
+      color: #2a6496;
+    }
+
+  }
+}
+

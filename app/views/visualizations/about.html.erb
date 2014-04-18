@@ -34,7 +34,35 @@
   </div>
 </section>
 <section>
-  <h1>Creators</h1>
+  <h1 style="padding-left:10px;padding-top:10px">Creators</h1>
+  <div class="col-md-6 bio">
+    <%= image_tag "/images/lauraconwill.jpg", class:"biopic"%>
+    <h2>Laura Conwill</h2>
+    <h4>ローラ・コンウィル</h4>
+    <div class="social">
+      <a href="http://www.linkedin.com/pub/laura-conwill/87/286/9b"><%= fa_icon("linkedin 2x")%></a>
+      <span></span>
+      <a href="https://twitter.com/eleichsea"><%= fa_icon("twitter 2x")%></a>
+      <span></span>
+      <a href="https://github.com/lauraconwill"><%= fa_icon("github 2x")%></a>
+    </div>
+    <br>
+    <h4>Laura learned Japanese growing up in Tokyo.  She graudated from Caltech in 2012 and attended the Flatiron School in 2014.  Her interests include photography, hacking and browsing the collection at the Met.
+  </div>
+  <div class="col-md-6 bio">
+    <%= image_tag "/images/michaelprouty.png", class:"biopic" %>
+    <h2>Michael Prouty</h2>
+    <h4>マイケル・プラウティ</h4>
+    <div class="social">
+      <a href="https://linkedin.com/in/mprouts"><%= fa_icon("linkedin 2x")%></a>
+      <span></span>
+      <a href="https://twitter.com/MProuts"><%= fa_icon("twitter 2x")%></a>
+      <span></span>
+      <a href="https://github.com/MProuts"><%= fa_icon("github 2x")%></a>
+    </div>
+    <br>
+    <h4>Michael is a musician, language learner, and hacker.  He graduated from Pomona College in 2011 and attended the Flatiron School in 2014.  His interests include modernist literature, Mahler, and long walks in the park.</h4>
+  </div>
 </section>
 <%= link_to "<", directed_graph_large_path, :class => "navigation-left", :id => "about" %>
 </div>

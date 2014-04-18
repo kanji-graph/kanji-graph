@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'mojinizer'
+gem 'font-awesome-rails'
 
 gem 'nokogiri'
 gem 'd3-rails'
