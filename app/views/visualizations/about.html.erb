@@ -3,24 +3,28 @@
   <section>
   <h1 style="padding-left:10px">Concepts From Graph Theory</h1>
   <div class="row">
-    <div class="col-md-4">
-      picture of component with blank nodes
+    <div class="col-md-4" id="graph-theory">
+      <%= image_tag "/images/breadth_first_search.gif" %>
+      <%= image_tag "/images/node.png", :id => "node" %>
     </div>
     <div class="col-md-8">
       <br>
-      <h4><b>Components</b> are groups of connected nodes in a graph. Think of them as islandsof interconnected data.</h4>
+      <br>
+      <h4><b>Components</b> are groups of connected nodes in a graph. Think of them as islands of interconnected data.</h4>
+      <br>
+      <h4>In order to calculate the number of components in a given graph, we implemented the <b>breadth-first search</b> algorithm.</h4>
+      <br>
       <br>
       <h4>In our large graph, there are <b>80 characters</b> yet only <b>7 components</b>.  Most of the nodes are linked to one large central component.  This conveys that most common japanese names are related combinations of the same small set of kanji.</h4>
       <br>
-      <h4>We noticed that <b>田</b> (pronounced "da", meaning "rice field") was by far the most connected datum in the large graph, occuring in 25 names -- a quarter of our sample. This perhaps speaks to Japan's heritage as an aggrarian society.</h4>   
-      <br>
-      <h4>In order to calculate the number of components in a given graph, we implemented <b>breadth-first search</b>.</h4>
+      <h4>We noticed that <b>田</b> (pronounced "ta", meaning "rice field") was by far the most connected datum in the large graph, occuring in 25 names -- a quarter of our sample. This perhaps speaks to Japan's heritage as an aggrarian society.</h4>   
     </div>
   </div>
 </section>
 <section class="gray">
   <h1 style="text-align:right;padding-right:10px">Technologies Used</h1>
   <div class="col-md-8">
+    <br>
     <h4>We used <b>AJAX</b> to access information from the database in our Javascript layer. <b>D3.js</b> provides a built-in .json() function, which we used to access our own json endpoints.</h4>
     <br>
     <h4>Kanji definitions were dynamically scraped and seeded using <b>Nokogiri</b> and a custom <b>rake</b> task.</h4>

@@ -286,8 +286,26 @@ section.gray {
   }
 }
 
+#graph-theory img {
+  width: 200px;
+  height: 200px;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+img#node {
+  margin-top: 20px;
+  margin-left: 100px;
+  width: 170px;
+  height: 170px;
+}
+
 .center {
   width: 30%;
   margin: 0 auto;
 }
 
+b {
+  color: #428bca;
+}
