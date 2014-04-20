@@ -59,7 +59,9 @@ $(document).ready(function(){
             return 0;
         }
 
-        // Return array equivalent to 
+        // Using underscore.js, this could be replaced with _.compact(edges);
+        //
+        // Return array equivalent to
         // Ex: [[1, 2], undefined, [3, 5], undefined, undefined, [1, 3]] #=> [[1, 2], [3, 5], [1, 3]]
         var deleteUndefined = function (edges) {
           var temp = []
@@ -70,6 +72,8 @@ $(document).ready(function(){
           return temp
         }
 
+        // Using underscore.js, this could be replaced with _.flatten(array_of_arrays);
+        //
         var flatten = function(array_of_arrays) {
           var temp = $.map(array_of_arrays, function(n){
             return n;
@@ -77,13 +81,15 @@ $(document).ready(function(){
           return temp;
         }
 
+        // Using underscore.js, this could be replaced with _.uniq(array_with_duplicates);
+        //
         var unique = function(array_with_duplicates){
           var temp = []
           for (i = 0; i < array_with_duplicates.length; i++)
             if (temp.indexOf(array_with_duplicates[i]) == -1) {
               temp.push(array_with_duplicates[i])
             }
-          return temp
+          return temp;
         }
 
 
@@ -108,10 +114,10 @@ $(document).ready(function(){
                       component = unique(flatten(component));
                     }
                   }
-                  // Remove all undefined elements from array. 
+                  // Remove all undefined elements from array.
                   // This has the same effect in the end as deleting the edges that moved into the component.
                   edges = deleteUndefined(edges);
-                }  
+                }
                 components.push(component);
             }
 
@@ -159,7 +165,7 @@ $(document).ready(function(){
             // Look through all of the edges
             // if it's there, break
             // if not, remove it
-            
+
             var flag = 0;
             for (var i=0; i < links.length; i++) {
                 if(links[i].source.name == kanji || links[i].target.name == kanji){
@@ -168,7 +174,7 @@ $(document).ready(function(){
                 }
             }
             // If it's not a part of any other kanji, remove it.
-            if (flag == 0) { 
+            if (flag == 0) {
                 // Raise an exception if the node's index is undefined!!
                 if (findNodeIndexByName(kanji) != undefined) {
                     nodes.splice(findNodeIndexByName(kanji), 1);
@@ -275,12 +281,12 @@ $(document).ready(function(){
             //links are objects
             // Find the node whose id is the source id and the node whose id is the target id.
 
-            // Only add the links if the two nodes exist. 
+            // Only add the links if the two nodes exist.
             // If they don't both exist, for example because one of them has been removed, just don't add the link.
             if ((findNode(source_id) != undefined) && (findNode(target_id) != undefined)) {
                 links.push({"source":findNode(source_id),"target":findNode(target_id),"value":value});
                 update();
-  
+
             }
         };
 
@@ -345,7 +351,7 @@ $(document).ready(function(){
             .attr("perserveAspectRatio","xMinYMid")
             .append('svg:g');
 
-        
+
         vis.append("circle")
           .attr("r", "100")
           .style("fill", "rgba(225, 0, 0, .2)")
@@ -362,7 +368,7 @@ $(document).ready(function(){
         var update = function () {
               var link = vis.selectAll("line")
                 .data(links, function(d) {
-                  return d.source.id + "-" + d.target.id; 
+                  return d.source.id + "-" + d.target.id;
                 });
 
             link.enter().insert("line", ".node")
@@ -389,7 +395,7 @@ $(document).ready(function(){
                   .attr("y", "5")
                   .style("color", "#4b4b4b")
                   .style('text-anchor', 'middle')
-                  .text(function(d) { 
+                  .text(function(d) {
                     return d.name; });
             var circle = nodeEnter.append("circle")
                   .attr("id", function(d) {return d.index})
@@ -437,13 +443,13 @@ $(document).ready(function(){
 
         json.nodes.forEach(function(node){
           graph.addNode(node.id, node.name);
-          
+
         });
 
         json.links.forEach(function(link){
           // source and target actually symbols
           // graph.addLink(graph.readNodes()[link["source"]].name, graph.readNodes()[link["target"]].name, '20');
-          // Add a link between the source and target ids 
+          // Add a link between the source and target ids
           //(which are set for a particular kanji--they're not based on position inside any array!)
           graph.addLink(link.source, link.target, '20')
         });
@@ -508,7 +514,7 @@ $(document).ready(function(){
         }
     });
 
-  
+
     // Add or remove kanji
     $('.kanji_checkbox').click(function(){
         if ($(this).is(':checked')){

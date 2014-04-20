@@ -2,18 +2,18 @@ class SurnamesController < ApplicationController
   before_action :set_surname, only: [:show, :edit, :update, :destroy]
 
   def histogram
-    @histogram_data = Surname.histogram_data
-    render json: @histogram_data
+    histogram_data = Surname.histogram_data
+    render json: histogram_data
   end
 
   def directed_graph_small
-    @small_graph_data = Surname.small_graph_data
-    render json: @small_graph_data
+    small_graph_data = Surname.small_graph_data
+    render json: small_graph_data
   end
 
   def directed_graph_large
-    @large_graph_data = Surname.large_graph_data
-    render json: @large_graph_data
+    large_graph_data = Surname.large_graph_data
+    render json: large_graph_data
   end
 
 
@@ -51,7 +51,7 @@ class SurnamesController < ApplicationController
         format.html do
           render action: 'new'
         end
-        format.js do 
+        format.js do
           render 'errors'
         end
       end

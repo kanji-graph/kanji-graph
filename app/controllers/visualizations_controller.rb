@@ -1,5 +1,6 @@
 class VisualizationsController < ApplicationController
-  def histogram 
+
+  def histogram
   end
 
   def add_and_remove
@@ -13,9 +14,9 @@ class VisualizationsController < ApplicationController
 
   def add_and_remove_small
     @surnames = Surname.all.limit(10)
-    @nodes = Surname.small_graph_nodes
+    @nodes = Surname.nodes(10)
     @edges = Surname.small_graph_links
-    @components = Surname.small_graph_components.count
+    @components = Surname.components('small_graph_components').count
   end
 
   def add_and_remove_large
@@ -23,9 +24,10 @@ class VisualizationsController < ApplicationController
   end
 
   def directed_graph_small
-    @nodes = Surname.small_graph_nodes.count
+    @nodes = Surname.nodes(10).count
     @edges = Surname.small_graph_links.count
-    @components = Surname.small_graph_components.count
+    @components = Surname.components('small_graph_components').count
+    # Why do you need to build a new surname and load all surnames here?
     @surname = Surname.new
     @surnames = Surname.all
   end
@@ -34,12 +36,14 @@ class VisualizationsController < ApplicationController
     @nodes = Surname.nodes.count
     @edges = Surname.all.count
     @components = Surname.components.count
+    # Why do you need to build a new surname and load all surnames here?
     @surname = Surname.new
     @surnames = Surname.all
   end
 
 
   def miserables
+    # Why is the class variable necessary here?
     @@data = File.read("db/miserables.json")
     render :json => @@data
   end
