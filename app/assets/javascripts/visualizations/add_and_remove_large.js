@@ -42,7 +42,7 @@ $(document).ready(function(){
             return links_array.length;
         }
 
-        
+
         // Helper function to determine if two arrays have overlap
 
         var hasOverlap = function (array1, array2) {
@@ -273,8 +273,14 @@ $(document).ready(function(){
         this.addLink = function (source_id, target_id, value) {
             //links are objects
             // Find the node whose id is the source id and the node whose id is the target id.
-            links.push({"source":findNode(source_id),"target":findNode(target_id),"value":value});
-            update();
+
+            // Only add the links if the two nodes exist. 
+            // If they don't both exist, for example because one of them has been removed, just don't add the link.
+            if ((findNode(source_id) != undefined) && (findNode(target_id) != undefined)) {
+                links.push({"source":findNode(source_id),"target":findNode(target_id),"value":value});
+                update();
+  
+            }
         };
 
 
@@ -346,7 +352,7 @@ $(document).ready(function(){
 
         var force = d3.layout.force();
         force
-          .charge(-60)
+          .charge(-70)
           .linkDistance(100);
 
         var nodes = force.nodes(),
@@ -360,6 +366,8 @@ $(document).ready(function(){
 
             link.enter().insert("line", ".node")
                 .attr("id",function(d){return d.source.id + "-" + d.target.id;})
+                .attr("source", function(d){return d.source.id})
+                .attr("target", function(d){return d.target.id})
                 .attr("class","link");
             link.append("title")
             .text(function(d){
@@ -404,11 +412,27 @@ $(document).ready(function(){
 
             });
 
+            // highlight links
+            node.on('mouseover.links', function(d) {
+              console.log(d.id);
+              adjacent_links = d3.selectAll("line[target='" + d.id + "'], line[source='" + d.id + "']");
+              window.these = adjacent_links;
+              adjacent_links.attr("class", "link active");
+
+              //highlight_links(d.id);
+              console.log("here--done");
+            })
+            .on('mouseout.links', function(d) {
+              adjacent_links = d3.selectAll("line[target='" + d.id + "'], line[source='" + d.id + "']");
+              // Add a class to these that will change their color! :D
+              adjacent_links.attr("class", "link");
+            });
+
             // Restart the force layout.
             force
             .gravity(.05)
             .distance(50)
-            .linkDistance( 50 )
+            .linkDistance( 100 )
             .size([w, h])
             .start();
         };
@@ -475,3 +499,4 @@ $(document).ready(function(){
 
 
 });
+
