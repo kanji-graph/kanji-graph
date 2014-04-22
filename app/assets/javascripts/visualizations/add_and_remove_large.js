@@ -13,6 +13,121 @@ $(document).ready(function(){
           return links;
         }
 
+        // get an array of all the nodes
+        this.readNodesArray = function() {
+            var nodes_array = [];
+            var nodes_copy = this.readNodes();
+            for (i = 0; i < nodes_copy.length; i++) {
+                nodes_array.push(nodes_copy[i].id);
+            }
+            return nodes_array;
+        }
+
+        // get an array of the edges, as [[source, target], ...]
+        this.readLinksArray = function() {
+            var links_array = [];
+            var links_copy = this.readLinks();
+            for (i = 0; i < links_copy.length; i++) {
+                links_array.push([links_copy[i].source.id, links_copy[i].target.id])
+            }
+            return links_array;
+        }
+
+
+        this.numNodes = function(nodes_array) {
+            return nodes_array.length;
+        }
+
+        this.numLinks = function(links_array) {
+            return links_array.length;
+        }
+
+        
+        // Helper function to determine if two arrays have overlap
+
+        var hasOverlap = function (array1, array2) {
+            // Only do this check if array1[i] != undefined
+            if (array1 === undefined || array2 === undefined) {
+                return 0;
+            }
+            for (var i=0; i < array1.length; i++) {
+                if (array2.indexOf(array1[i]) > -1) {
+                    return 1;
+                }
+            }
+            return 0;
+        }
+
+        // Return array equivalent to 
+        // Ex: [[1, 2], undefined, [3, 5], undefined, undefined, [1, 3]] #=> [[1, 2], [3, 5], [1, 3]]
+        var deleteUndefined = function (edges) {
+          var temp = []
+          for (i = 0; i < edges.length; i++)
+            if (edges[i] != undefined) {
+              temp.push(edges[i])
+            }
+          return temp
+        }
+
+        var flatten = function(array_of_arrays) {
+          var temp = $.map(array_of_arrays, function(n){
+            return n;
+          });
+          return temp;
+        }
+
+        var unique = function(array_with_duplicates){
+          var temp = []
+          for (i = 0; i < array_with_duplicates.length; i++)
+            if (temp.indexOf(array_with_duplicates[i]) == -1) {
+              temp.push(array_with_duplicates[i])
+            }
+          return temp
+        }
+
+
+        this.numComponents = function (edges, nodes) {
+            var edges_copy = edges.slice();
+            //console.log("edges: " + edges + "edges copy: " + edges_copy)
+            var components = [];
+
+            while (edges.length > 0) {
+                var component = edges.shift();
+                while (edges.filter(function (edge) {return hasOverlap(edge, component);}).length > 0) {
+                  //console.log('Current amount of overlap: ' + edges.filter(function (edge) {return hasOverlap(edge, component);}).length + ' edges');
+                  // Iterate through all of the edges.
+                  for (i=0; i < edges.length; i++){
+                    // If the edge overlaps with the current component
+                    if (hasOverlap(edges[i], component) === 1) {
+                      // add the contents of this edge to the component.
+                      component.push(edges[i]);
+                      // Put in "undefined" at that position.
+                      edges[i] = undefined;
+                      // Flatten the component and make it unique.
+                      component = unique(flatten(component));
+                    }
+                  }
+                  // Remove all undefined elements from array. 
+                  // This has the same effect in the end as deleting the edges that moved into the component.
+                  edges = deleteUndefined(edges);
+                }  
+                components.push(component);
+            }
+
+            // Take into account orphan nodes
+            // which nodes are not in unique(flatten(edges)); ?
+            var num_orphans = 0;
+            nodes.forEach(function (node) {
+              if (unique(flatten(edges_copy)).indexOf(node) == -1) {
+                console.log(edges_copy)
+                num_orphans++;
+              }
+            });
+            return components.length + num_orphans;
+        }
+
+
+
         // Add and remove elements on the graph object
         this.addNode = function (id, name) {
             nodes.push({"id": id, "name": name});
@@ -60,6 +175,35 @@ $(document).ready(function(){
             }
             update();
         };
+
+        this.removeKanjiAndAdjacentEdges = function(kanji) {
+          if (findNodeIndexByName(kanji) != undefined) {
+            nodes.splice(findNodeIndexByName(kanji), 1);
+
+            original_json.links.forEach(function(link){
+              //console.log("Kanji is: " + kanji + " Source is: " + findNodeNameById(link.source) + " Target is: " + findNodeNameById(link.target))
+              if (findNodeNameById(link.source) == kanji || findNodeNameById(link.target) == kanji) {
+                graph.removeLink(link.source, link.target)
+              }
+            })
+          }
+          update();
+        }
+
+        this.addKanjiAndAdjacentEdges = function(kanji) {
+          var kanji_id = graph.findOriginalJsonNodeIdByName(kanji);
+          graph.addNode(kanji_id, kanji);
+
+          original_json.links.forEach(function(link){
+            console.log("Kanji is: " + kanji + " Source is: " + findNodeNameById(link.source) + " Target is: " + findNodeNameById(link.target))
+            if (findNodeNameById(link.source) == kanji || findNodeNameById(link.target) == kanji) {
+              graph.addLink(link.source, link.target)
+            }
+          })
+
+
+          update();
+        }
 
         this.nodeExists = function(kanji) {
             var flag = 0;
@@ -152,6 +296,14 @@ $(document).ready(function(){
             for (var i=0;i<nodes.length;i++) {
                 if (nodes[i].name==name){
                     return i;
+                }
+            };
+        }
+
+        var findNodeNameById = function(id) {
+          for (var i=0;i< original_json.nodes.length;i++) {
+                if (original_json.nodes[i].id==id){
+                    return original_json.nodes[i].name;
                 }
             };
         }
@@ -276,6 +428,7 @@ $(document).ready(function(){
 
         original_json = json;
 
+
         json.nodes.forEach(function(node){
           graph.addNode(node.id, node.name);
           
@@ -293,43 +446,32 @@ $(document).ready(function(){
     drawGraph();
 
 
-
-    $('.name_checkbox').click(function(){
+    
+    // Add or remove kanji
+    $('.kanji_checkbox2').click(function(){
         if ($(this).is(':checked')){
 
-            var kanji1 = $(this).val()[0];
-            var kanji2 = $(this).val()[1];
+            var kanji = $(this).val();
+            graph.addKanjiAndAdjacentEdges(kanji);
 
-            // find id for node in json.nodes that has this kanji as its name
-            var kanji1_id = graph.findOriginalJsonNodeIdByName(kanji1);
-            var kanji2_id = graph.findOriginalJsonNodeIdByName(kanji2);
+            // Update statistics
 
-            // create nodes for kanji1 and kanji2 if they don't exist
-            // Kanji are stored in the Character table of the database
-            if (!graph.nodeExists(kanji1)) {
-                graph.addNode(kanji1_id, kanji1);
-            }
-            if (!graph.nodeExists(kanji2)) {
-                graph.addNode(kanji2_id, kanji2);
-            }
-
-            // add edge between them
-            graph.addLink(kanji1_id, kanji2_id, '20');
+            $('.table td:nth-child(1)').text(graph.numNodes(graph.readNodes()))
+            $('.table td:nth-child(2)').text(graph.numNodes(graph.readLinks()) )
+            $('.table td:nth-child(3)').text(graph.numComponents(graph.readLinksArray(), graph.readNodesArray()))
 
         }
 
         else {
-            var kanji1 = $(this).val()[0];
-            var kanji2 = $(this).val()[1];
+            var kanji = $(this).val();
+            graph.removeKanjiAndAdjacentEdges(kanji);
 
-            graph.removeLinkByKanji(kanji1, kanji2);
-            if (!graph.linked(kanji1)) {
-              graph.removeNodeByKanji(kanji1);
-            }
-            if (!graph.linked(kanji2)) {
-              graph.removeNodeByKanji(kanji2);
-            }
+            $('.table td:nth-child(1)').text(graph.numNodes(graph.readNodes()))
+            $('.table td:nth-child(2)').text(graph.numNodes(graph.readLinks()) )
+            $('.table td:nth-child(3)').text(graph.numComponents(graph.readLinksArray(), graph.readNodesArray()))
+
         }
     });
+
 
 });

@@ -9,8 +9,8 @@ class Surname < ActiveRecord::Base
   end
 
   def self.large_graph_data
-    { nodes: self.nodes, 
-      links: self.links }
+    { nodes: self.large_graph_nodes, 
+      links: self.large_graph_links }
   end
 
   def self.small_graph_data
@@ -37,8 +37,21 @@ class Surname < ActiveRecord::Base
     self.limit(10).pluck(:name)
   end
 
+  def self.large_graph_names
+    self.all.pluck(:name)
+  end
+
   def self.small_graph_nodes
     kanji_array = self.small_graph_names.join("").split("").uniq
+    kanji_array.each_with_index.map do |name, index| 
+      { name: name,
+        id: index,
+        meaning: Character.find_by(:name => name).meaning }
+    end
+  end
+
+  def self.large_graph_nodes
+    kanji_array = self.large_graph_names.join("").split("").uniq
     kanji_array.each_with_index.map do |name, index| 
       { name: name,
         id: index,
@@ -54,12 +67,22 @@ class Surname < ActiveRecord::Base
                                                          target: self.small_graph_nodes.select{|hsh| hsh[:name] == name[1]}[0][:id]}}
   end
 
+  def self.large_graph_links
+    nodes_with_ids = self.large_graph_names.map{ |name| {source: self.large_graph_nodes.select{|hsh| hsh[:name] == name[0]}[0][:id],
+                                                         target: self.large_graph_nodes.select{|hsh| hsh[:name] == name[1]}[0][:id]}}
+  end
+
+
   def self.edges
     self.links.collect{|hsh| [hsh[:source], hsh[:target]].sort}
   end
 
   def self.small_graph_edges
     self.small_graph_links.collect{|hsh| [hsh[:source], hsh[:target]].sort}
+  end
+
+  def self.large_graph_edges
+    self.large_graph_links.collect{|hsh| [hsh[:source], hsh[:target]].sort}
   end
 
   def self.components
@@ -79,6 +102,21 @@ class Surname < ActiveRecord::Base
 
   def self.small_graph_components
     edges = self.small_graph_edges
+    components = []
+    while edges.any? 
+      component = edges.shift
+      while edges.select { |edge| !(edge & component).empty? }.any?
+        component << edges.select { |edge| !(edge & component).empty? }
+        edges.delete_if { |edge| !(edge & component).empty? }
+        component = component.flatten.uniq
+      end
+      components << component
+    end
+    components
+  end
+
+  def self.large_graph_components
+    edges = self.large_graph_edges
     components = []
     while edges.any? 
       component = edges.shift
