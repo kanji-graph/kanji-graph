@@ -332,8 +332,8 @@ $(document).ready(function(){
         }
 
         // set up the D3 visualisation in the specified element
-        var w = 750,
-            h = 509;
+        var w = 700,
+            h = 680;
         var vis = d3.select(vis_div)
             .append("svg:svg")
             .attr("width", w)
