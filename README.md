@@ -2,19 +2,16 @@
 
 ## Description
 
-Create and view associations between Japanese words.
+kanji.graphics investigates what can be discovered about the Japanese language by visualizing connections between its words. 
 
 ## Screenshots
 
 
-![Ten most common surnames](http://i.imgur.com/ZYj8OHw.png)
+![100 most common Japanese surnames](http://i.imgur.com/LEKHP5H.png)
 
-Sample dataset using the 10 most common Japanese surnames, taken from [Wikipedia](http://en.wikipedia.org/wiki/List_of_most_common_surnames_in_Asia#Japan "wikipedia").
+Sample dataset using the 100 most common Japanese surnames, taken from [Wikipedia](http://en.wikipedia.org/wiki/List_of_most_common_surnames_in_Asia#Japan "wikipedia").
 
 ## Author
 
 @eleichsea and @mprouts!
 
-## License
-
-This app is MIT Licensed. See LICENSE for details.
