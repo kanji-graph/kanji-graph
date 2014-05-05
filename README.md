@@ -13,10 +13,9 @@ Kanji definitions were dynamically scraped and seeded using Nokogiri and a custo
 
 Object-oriented Javascript is used to implement the dynamic graphs. Each page load instantiates a Graph object, which maintains the state of the graph as nodes are added and removed.
 
-We used jQuery to bind highlight and tooltip effects to each node's hover event.
+jQuery is used to bind highlight and tooltip effects to each node's hover event.
 
 The trusty Rails stack holds it all together.
->>>>>>> add-and-remove-large
 
 ## Screenshots
 
