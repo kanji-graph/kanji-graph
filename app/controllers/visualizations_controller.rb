@@ -20,6 +20,9 @@ class VisualizationsController < ApplicationController
 
   def add_and_remove_large
     @surnames = Surname.all
+    @nodes = Surname.large_graph_nodes
+    @edges = Surname.large_graph_links
+    @components = Surname.large_graph_components.count
   end
 
   def directed_graph_small

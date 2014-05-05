@@ -1,0 +1,35 @@
+<h1>五　Iteration 5</h1>
+<div class="row">
+  <div class="col-md-8" id="directed_graph_dynamic_large">
+  </div>
+  <div class="col-md-4 well stats" id="statistics">
+    <h2>Large Dynamic Graph</h2>
+    <p>(click below)</p>
+    <br>
+    <div>
+    <table class="table">
+      <tr>
+        <th>Nodes</th>
+        <th>Edges</th>
+        <th>Components</th>
+      </tr>
+      <tr>
+        <td><%= @nodes.count %></td>
+        <td><%= @edges.count %></td>
+        <td><%= @components %></td>
+      </tr>
+    </table>
+    </div>
+    <p class="button-group-label">Characters:</p>
+    <div id='kanjis'>
+      <% @nodes.each do |node| %>
+        <div class='ck-button'>
+          <label class='ck-button'><input type="checkbox" name="name" class="kanji_checkbox2" value="<%= node[:name] %>" checked><span><%= node[:name] %></span></label>
+        </div>
+      <% end %>
+    </div>
+    <%= link_to ">", about_path, :class => "navigation-right" %>
+    <%= link_to "<", directed_graph_large_path, :class => "navigation-left" %>
+    <p class="footnote">*dataset: 96 common Japanese surnames</p>
+  </div>
+</div>
