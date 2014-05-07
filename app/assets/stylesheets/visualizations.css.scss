@@ -39,11 +39,17 @@ circle {
   stroke: #5d5d5d;
 } 
 
-#directed_graph_small, #directed_graph_dynamic {
+#directed_graph_small, #directed_graph_dynamic, #directed_graph_dynamic_large {
   border: solid 2px #5d5d5d;
   padding: 0px;
   height: 509px;
 }
+
+#directed_graph_dynamic_large {
+  overflow: scroll;
+}
+
+
 
 #histogram, #directed_graph_large {
   border: solid 2px #5d5d5d;
@@ -58,7 +64,9 @@ circle {
 }
 
 #kanjis {
+  height: 49%;
   margin: 0px 0px;
+  overflow: scroll;
 }
 
 #surnames {

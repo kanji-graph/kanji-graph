@@ -207,6 +207,7 @@ circle {
 /* line 60, /Users/michaelprouty/dev/flatiron/proj/kanji-graph/app/assets/stylesheets/visualizations.css.scss */
 #kanjis {
   margin: 50px 0px;
+  overflow: scroll;
 }
 
 /* line 64, /Users/michaelprouty/dev/flatiron/proj/kanji-graph/app/assets/stylesheets/visualizations.css.scss */
