@@ -1,7 +1,7 @@
 class Surname < ActiveRecord::Base
   validates :name, :presence => true
   validate :ensure_name_is_kanji_only
-  attr_accessor :large_graph_char_data
+  attr_accessor :large_graph_char_data, :large_graph_nodes, :large_graph_names, :small_graph_names
 
   def self.histogram_data
     names = self.pluck(:name)
@@ -36,11 +36,11 @@ class Surname < ActiveRecord::Base
   end
 
   def self.small_graph_names
-    self.limit(10).pluck(:name)
+    @small_graph_names ||= self.limit(10).pluck(:name)
   end
 
   def self.large_graph_names
-    self.all.pluck(:name)
+    @large_graph_names ||= self.all.pluck(:name)
   end
 
   def self.small_graph_nodes
@@ -62,14 +62,14 @@ class Surname < ActiveRecord::Base
     end
   end
 
-  def get_me_large_graph_chars(kanji_array)
+  def self.get_large_graph_chars(kanji_array)
     @large_graph_char_data ||= Character.where(:name => kanji_array)
   end
 
 
   def self.large_graph_nodes
     kanji_array = self.large_graph_names.join("").split("").uniq
-    all_characters = Character.where(:name => kanji_array)
+    all_characters = get_large_graph_chars(kanji_array)
     all_characters.each_with_index.map do |char_data, index|
       {name: char_data.name,
        id: index,
