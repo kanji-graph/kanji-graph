@@ -1,6 +1,8 @@
 class Surname < ActiveRecord::Base
   validates :name, :presence => true
   validate :ensure_name_is_kanji_only
+  attr_accessor :large_graph_char_data
+
   def self.histogram_data
     names = self.pluck(:name)
     kanji = names.join("").split("")
@@ -50,12 +52,29 @@ class Surname < ActiveRecord::Base
     end
   end
 
-  def self.large_graph_nodes
+  # previous version
+  def self.busted_large_graph_nodes
     kanji_array = self.large_graph_names.join("").split("").uniq
     kanji_array.each_with_index.map do |name, index| 
       { name: name,
         id: index,
         meaning: Character.find_by(:name => name).meaning }
+    end
+  end
+
+  def get_me_large_graph_chars(kanji_array)
+    @large_graph_char_data ||= Character.where(:name => kanji_array)
+  end
+
+
+  def self.large_graph_nodes
+    kanji_array = self.large_graph_names.join("").split("").uniq
+    all_characters = Character.where(:name => kanji_array)
+    all_characters.each_with_index.map do |char_data, index|
+      {name: char_data.name,
+       id: index,
+       meaning: char_data.meaning
+      }
     end
   end
 
