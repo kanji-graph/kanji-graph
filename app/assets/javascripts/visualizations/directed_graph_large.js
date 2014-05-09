@@ -15,12 +15,10 @@ $(document).ready(function(){
       .attr("width", width)
       .attr("height", height);
 
-
-
   // !!! Diagram's position on page
   var group = svg.append("g")
     .attr("transform", "translate(0, 0)")
-  
+
   d3.json("surnames/directed_graph_large", function(error, graph) {
     var nodes = graph.nodes.slice(),
         links = [],

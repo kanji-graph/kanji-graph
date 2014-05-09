@@ -110,6 +110,7 @@ class Surname < ActiveRecord::Base
     while edges.any? 
       component = edges.shift
       while edges.select { |edge| !(edge & component).empty? }.any?
+
         component << edges.select { |edge| !(edge & component).empty? }
         edges.delete_if { |edge| !(edge & component).empty? }
         component = component.flatten.uniq

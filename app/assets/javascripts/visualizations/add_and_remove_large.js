@@ -344,7 +344,7 @@ $(document).ready(function(){
             .attr("perserveAspectRatio","xMinYMid")
             .append('svg:g');
 
-        
+
         vis.append("circle")
           .attr("r", "100")
           .style("fill", "rgba(225, 0, 0, .2)")
